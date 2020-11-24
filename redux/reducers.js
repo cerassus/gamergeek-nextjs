@@ -8,6 +8,20 @@ const game_status = (state = false, action) => action.type === actions.START_GAM
 
 const random_game = (state = "", action) => action.type === actions.GET_RANDOM_GAME ? action.game : state
 
+const screenshots_loaded = (state = false, action) => {
+    switch(action.type) {
+        case actions.FILES_LOADED: {
+            console.log('loaded')
+            return 'loaded'
+        }
+        case actions.FILES_ARE_LOADING: {
+            console.log('loading')
+            return 'loading'
+        }
+        default: return state
+    }
+}
+
 // const user_score = (state = [], action) => action.type === actions.NEW_ANSWER ? [...state, action.answer] : state
 
 const user_score = (state = [], action) => {
@@ -23,6 +37,7 @@ export default combineReducers({
   game_status,
   random_game,
   user_score,
+  screenshots_loaded,
 })
 
 

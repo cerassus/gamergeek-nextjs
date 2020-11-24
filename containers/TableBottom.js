@@ -5,6 +5,7 @@ import { newAnswer, getRandomGame } from "../redux/actions"
 const mapState = state => ({
     game_status: state.game_status,
     random_game: state.random_game,
+    screenshots_loaded: state.screenshots_loaded,
 })
 
 const mapDispatch  = dispatch => ({

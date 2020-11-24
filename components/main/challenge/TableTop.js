@@ -6,7 +6,7 @@ import { game_database } from "../../../global/const"
 
 const game_difficulty = ['easy', 'medium', 'hard']
 
-export default function TableTop({ game_status, startGame, stopGame, generateGame, getRandomGame }) {
+export default function TableTop({ game_status, startGame, stopGame, getRandomGame }) {
   const [difficultyChoice, showDifficultyChoice] = React.useState(false)
   const stop = () => {
     showDifficultyChoice(false);

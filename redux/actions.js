@@ -3,6 +3,8 @@ export const STOP_GAME = "STOP_GAME";
 export const GET_RANDOM_GAME = "GET_RANDOM_GAME";
 export const GET_SIMILAR_GAMES = "GET_SIMILAR_GAMES";
 export const NEW_ANSWER = "NEW_ANSWER";
+export const FILES_LOADED = "FILES_LOADED";
+export const FILES_ARE_LOADING = "FILES_ARE_LOADING";
 
 
 export const startGame = (difficulty) => ({
@@ -27,4 +29,12 @@ export const getSimilarGames = (game) => ({
 export const newAnswer = (answer) => ({
     type: NEW_ANSWER,
     answer,
+})
+
+export const screenshotsLoaded = () => ({
+    type: FILES_LOADED,
+})
+
+export const screenshotsAreLoading = () => ({
+    type: FILES_ARE_LOADING,
 })

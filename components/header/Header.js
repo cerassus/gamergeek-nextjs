@@ -9,9 +9,10 @@ import { connect } from "react-redux";
 
 const mapState = state => ({
     game_status: state.game_status,
+    screenshots_loaded: state.screenshots_loaded,
 })
 
-function Header({ title, game_status }) {
+function Header({ title, game_status, screenshots_loaded }) {
   return (
     <>
       <Head>
@@ -22,7 +23,7 @@ function Header({ title, game_status }) {
       </Head>
       <Container type="header">
           <Container type="inline">
-              <Logo />
+              <Logo loading={screenshots_loaded}/>
               <Link href="/"><a><Typography h1>gamergeek</Typography></a></Link>
           </Container>
           <Navigation>

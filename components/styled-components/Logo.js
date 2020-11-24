@@ -21,7 +21,7 @@ const SmallBall = styled.div`
     position: absolute;
     top: 0;
     left: 12.5%;
-    background: rgba(230, 63, 63, 0.85);
+    background: ${props => props.loading === "loading" ? `blue` : `rgba(230, 63, 63, 0.85)`};
     border-radius: 50%;
 
     `
@@ -30,16 +30,15 @@ const MiddleBall = styled.div`
     width: 100%;
     height: 100%;
     animation: rolling 1s ease-in-out 0s infinite;
-    animation-play-state: ${props => props.status ? `running` : `paused`};
+    animation-play-state: ${props => props.loading === "loading" ? `running` : `paused`};
     `
 
-export default function Logo({big}) {
-    const [animation, setAnimation] = React.useState(false)
+export default function Logo({big, loading}) {
     return (
-        <LogoContainer big={big}>
+        <LogoContainer big={big} >
             <BigBall big={big} >
-                <MiddleBall onClick={() => setAnimation(!animation)} status={animation}>
-                    <SmallBall big={big} />
+                <MiddleBall loading={loading}>
+                    <SmallBall big={big} loading={loading}/>
                 </MiddleBall>
             </BigBall>
         </LogoContainer>

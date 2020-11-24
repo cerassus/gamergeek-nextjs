@@ -3,9 +3,8 @@ import Typography from "../../styled-components/Typography";
 import { pickRandomGame } from "../../../global/fetch"
 import { game_database } from "../../../global/const"
 
-export default function TableBottom({random_game, game_status, newAnswer, getRandomGame}) {
+export default function TableBottom({random_game, game_status, newAnswer, getRandomGame, screenshots_loaded}) {
   const checkAnswer = async (answer) => {
-    console.log(answer)
     const user_answer = answer.target.innerText === random_game.name ? {
       title: random_game.name,
       time: 3,
@@ -23,8 +22,8 @@ export default function TableBottom({random_game, game_status, newAnswer, getRan
   }
   return (
     <Table bottom>
-      {(game_status && random_game.answers) ? (
-        random_game.answers.map((answer, i) => <Typography key={Math.floor(Math.random()*10000)} answer onClick={answer => checkAnswer(answer)}>{answer}</Typography>)
+      {(game_status && random_game.answers && screenshots_loaded === 'loaded') ? (
+        random_game.answers.map((answer, i) => <Typography key={i} answer onClick={answer => checkAnswer(answer)}>{answer}</Typography>)
       ) : ``}
     </Table>
   );

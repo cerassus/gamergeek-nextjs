@@ -34,6 +34,7 @@ const SiteLink = styled.a`
     position: relative;
     bottom: 0;
     transition: all .2s;
+    /* ${(props) => !props.answer && `animation: fromAbove .2s 1;`} */
     animation: fromAbove .2s 1;
     font-weight: normal;
     font-size: clamp(1.5rem, 2.5vw, 2rem);

@@ -1,4 +1,3 @@
-
 export const pickRandomGame = (database) => {
     const randomIndex = Math.floor(Math.random() * database.length)
     const game = database[randomIndex]
@@ -23,7 +22,8 @@ const getGameScreenshots = async (game) => {
         try {
             const apishot = await fetch(`https://api.rawg.io/api/games/${game.id}/screenshots`)
             const screenshots = await apishot.json()
-            const game_screenshots = screenshots.results.splice(0,3).map(screen => screen = screen.image)
+            // const game_screenshots = screenshots.results.splice(0,3).map(screen => screen = screen.image)
+            const game_screenshots = pick3randomsFromArray(screenshots.results).map(screen => screen = screen.image)
             const game_with_screenshots = {
                 id: game.id,
                 name: game.name,
