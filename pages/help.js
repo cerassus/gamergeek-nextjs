@@ -13,7 +13,7 @@ export default function HelpPage() {
         help
       >
         <Typography h2>The Game</Typography>
-        <Typography p>
+        <Typography p padding="3vw">
           To start a new game press START A NEW CHALLENGE button. Set difficulty
           to EASY, MEDIUM or HARD. For each question Application will show 3
           screenshots from certain video game and four possible answers at the
@@ -23,12 +23,12 @@ export default function HelpPage() {
           You can get maximum of 3 hints per one question.
         </Typography>
         <Typography h2>Thanks to</Typography>
-        <Typography p>
+        <Typography p padding="3vw">
           Thanks to RAWG Video Games Database - https://rawg.io for sharing
           their API for free to use.
         </Typography>
         <Typography h2>Author</Typography>
-        <Typography p>
+        <Typography p padding="3vw">
           This webpage is made for my Portfolio. Technologies used: Next.js,
           Styled Components, Redux, Moment, MongoDB and full ServerSide
           Rendering. You can turn off JavaScript on this website.

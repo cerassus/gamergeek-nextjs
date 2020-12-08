@@ -4,7 +4,7 @@ const NavigationContainer = styled.ul`
     display: inline-block;
     justify-content: space-around;
     list-style: none;
-    @media (max-width: 1200px) {
+    @media (max-width: 1000px) {
         margin: 2vh auto;
     }
     `

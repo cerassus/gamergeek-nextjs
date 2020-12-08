@@ -9,10 +9,9 @@ export default function ScreenshotViewer({ random_game, game_status }) {
   const nextClick = () => screenshotIndex === 2 ? setIndex(0) : setIndex(screenshotIndex + 1);
   return (
     <Container type="standard" width="min(95rem, 95%)" flex>
-        {console.log(random_game)}
-        {game_status && <ScreenshotArrow left onClick={previousClick} />}
+        {game_status.isStarted && <ScreenshotArrow left onClick={previousClick} />}
         <Screenshot src={random_game && random_game.screenshots} index={screenshotIndex} />
-        {game_status && <ScreenshotArrow right onClick={nextClick} />}
+        {game_status.isStarted && <ScreenshotArrow right onClick={nextClick} />}
     </Container>
   )
 }

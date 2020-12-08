@@ -1,141 +1,202 @@
 import Table from "../../styled-components/Table";
 import Typography from "../../styled-components/Typography";
-import React from "react";
-import { pickRandomGame } from "../../../global/fetch";
-import { game_database } from "../../../global/const";
+import { useState, useEffect, Fragment } from "react";
+import { getGameDetails, fetchNewGameDatabase  } from "../../../global/fetch";
+import moment from 'moment'
+import * as SC from "../../styled-components/Popup"
 
 const game_difficulty = ["easy", "medium", "hard"];
 
-export default function TableTop({
-  game_status,
-  random_game,
-  screenshots_loaded,
-  startGame,
-  stopGame,
-  getRandomGame,
-  newAnswer,
-  screenshotsAreLoading,
-}) {
-  const [difficultyChoice, showDifficultyChoice] = React.useState(false);
-  const stop = () => {
-    showDifficultyChoice(false);
-    return stopGame();
-  };
-  const start = async (difficulty) => {
-    screenshotsAreLoading();
-    const randomik = await pickRandomGame(game_database);
-    getRandomGame(randomik);
-    difficulty && startGame(difficulty);
-  };
+export default function TableComponent({
+    random_game, startGame, startLoading, endGame, user_score, clearUserScore, newGameDatabase,
+    showRandomGame, pushNewAnswer, showHint, clearHint, game_status, game_database, removeItemFromDatabase }) {
+  const [answerTimeStart, setAnswerTimeStart] = useState(false)
+  const [hintCounter, setHintCounter] = useState(0)
+  const [hints, setHints] = useState(false)
+  const [difficulty, setDifficulty] = useState(false)
+  const [usernamePanel, showUsernamePanel] = useState(true)
+  const [warning, setWarning] = useState(false)
+  const [popup, switchPopup] = useState(false)
+  const [summary, showSummary] = useState(false)
+  const [username, setUsername] = useState(false)
+
+  const startNewGame = () => {
+    switchPopup(true)
+  }
+  const loadNewQuestion = async () => {
+    const randomIndex = Math.floor(Math.random() * game_database.length)
+    !game_status.isLoading && startLoading()
+    clearHint()
+    setHintCounter(0)
+    if(game_database === 0) {
+      endGame() 
+    } else {
+      showRandomGame(await getGameDetails(game_database[randomIndex]))
+      removeItemFromDatabase(randomIndex)
+    }
+  } 
+  const getNewDatabase = async () => {
+    startLoading()
+    newGameDatabase(await fetchNewGameDatabase(difficulty-1))
+    await loadNewQuestion()
+  }
+  const quitGame = () => {
+    clearHint()
+    setHintCounter(0)
+    setHints(false)
+    showUsernamePanel(true)
+    setDifficulty(false)
+    setUsername(false)
+    setAnswerTimeStart(false)
+    switchPopup(false)
+    user_score.length > 0 && showSummary(true)
+  }
+  const getHint = () => {
+    showHint(...hints.splice(Math.floor(Math.random() * hints.length), 1))
+    setHintCounter(hintCounter => hintCounter + 1)
+  }
+  const handleTyping = (e) => {
+    (0 < e.target.value.length && e.target.value.length < 3) 
+      ? setWarning(true)
+      : setWarning(false);   // check if username doesn't match one of usernames in MongoDatabase
+    setUsername(e.target.value)
+  }
+  const validateUserName = () => {
+    (warning || !username) ? alert('Wrong username! Try different one!') : showUsernamePanel(false)
+  }
+  const close_summary = () => {
+    showSummary(false)
+    clearUserScore()
+  }
   const checkAnswer = async (answer) => {
-    const user_answer =
-      answer.target.innerText === random_game.name
+    const answerTimeEnd = moment()
+    const user_answer = answer === random_game.name
         ? {
             title: random_game.name,
-            time: 3,
-            score: 2000,
+            time: answerTimeEnd.diff(answerTimeStart),
+            score: Number((1000/answerTimeEnd.diff(answerTimeStart)*10000*((10-hintCounter)/10)).toFixed()),
             correct: true,
+            hints_used: hintCounter,
           }
         : {
             title: random_game.name,
-            time: 3,
+            time: answerTimeEnd.diff(answerTimeStart),
             score: 0,
             correct: false,
+            skip: answer === "player_skipped_game" ? true: false,
+            hints_used: hintCounter,
           };
-    newAnswer(user_answer);
-    start();
-  };
+    pushNewAnswer(user_answer)
+    loadNewQuestion()
+  }
+
+  useEffect(() => {
+    !game_status.isLoading && setAnswerTimeStart(moment())
+    !game_status.isStarted && quitGame()
+  }, [game_status])
+  useEffect(() => {
+    random_game && setHints(random_game.hints) 
+  }, [random_game])
+  useEffect(() => {
+    if(difficulty) {
+      switchPopup(false)
+      startGame()
+      getNewDatabase()
+    }
+  },[difficulty])
+  useEffect(() => {
+    game_database.length === 120 && loadNewQuestion()
+  }, [game_database])
+    
+  useEffect(() => () => {
+    clearUserScore()
+    endGame()
+  }, [])
+
   return (
-    <>
-      <Table top>
-        {screenshots_loaded !== "loading" ?
-          (game_status ? (
-            <>
-              <Typography key={Math.random() * 10000} link href="/">
-                get a hint
-              </Typography>
-              <Typography key={Math.random() * 10000} link onClick={start}>
-                skip
-              </Typography>
-              <Typography key={Math.random() * 10000} link onClick={stop}>
-                quit
-              </Typography>
-            </>
-          ) : difficultyChoice ? (
-            <>
-              <Typography key={Math.random() * 10000} link>
-                set difficulty:{" "}
-              </Typography>
-              {game_difficulty.map((diff, i) => (
-                <Typography
-                  key={Math.random() * 10000}
-                  link
-                  onClick={() => start({ i })}
-                >
-                  {diff}
-                </Typography>
-              ))}
-            </>
-          ) : (
-            <Typography
-              key={Math.random() * 10000}
-              link
-              onClick={() => showDifficultyChoice(true)}
-            >
-              start a new challenge
-            </Typography>
-          )) : 
-          <Typography
-          key={'9ac9923'}
-          link
-        >
-          loading
-        </Typography>}
+    <Fragment>
+      <Table top>    
+        {!game_status.isStarted ?
+          <Typography key={"key0015"} link onClick={() => startNewGame()}>start a new challenge</Typography>
+          : game_status.isLoading ?
+           <Typography key={'key0016'} link>loading</Typography>
+           : (
+            <Fragment>
+              {hintCounter < 3 && <Typography key={"key0011"} link onClick={() => getHint()}>get a hint</Typography>}
+              <Typography key={"key0012"} link onClick={() => checkAnswer("player_skipped_game")}>skip</Typography>
+              <Typography key={"key0013"} link onClick={() => endGame()}>quit</Typography>
+            </Fragment>
+          )}
       </Table>
       <Table bottom>
-        {game_status && random_game.answers && screenshots_loaded === "loaded"
-          ? random_game.answers.map((answer, i) => (
-              <Typography
-                key={i}
-                answer
-                onClick={(answer) => checkAnswer(answer)}
-              >
-                {answer}
-              </Typography>
-            ))
-          : ``}
+        {(game_status.isStarted && !game_status.isLoading && random_game.answers) ?
+        random_game.answers.map((answer, i) => (
+        <Typography key={"key0021"+i} answer onClick={(answer) => checkAnswer(answer.target.innerText)}>{answer}</Typography>))
+        : ``}
       </Table>
-    </>
-  );
+      <SC.Popup title="Hello gamergeek!" switch_popup={popup} popupIsClosed={() => quitGame()}>
+          {usernamePanel ? (
+            <Fragment>
+              <SC.WelcomeText>Let’s see how good you are! Starting from your name...</SC.WelcomeText>
+              <SC.TextInput type="text" onChange={(e) => handleTyping(e)} />
+              <SC.TextInputHint visible={warning}>Wrong nickname</SC.TextInputHint>
+              <SC.PlayButton onClick={() => validateUserName()}>Let's Play!</SC.PlayButton>
+            </Fragment>
+          ) : (
+            <Fragment>
+              <SC.WelcomeText center>Set game difficulty...</SC.WelcomeText>
+              {game_difficulty.map((diff_lvl, i) => (
+                <SC.PlayButton key={"key0011" + i} onClick={() => setDifficulty(i+1)}>
+                  {diff_lvl}
+                </SC.PlayButton>
+              ))}
+            </Fragment>
+          )}
+      </SC.Popup>
+      <SC.Popup title="Summary" switch_popup={summary} popupIsClosed={() => close_summary()}>
+        {(user_score.length > 0 && summary) && (
+          <div style={{display: "flex", width: "95%", padding: "2rem 0", justifyContent: "space-between"}}>
+            <div style={{width: "50%", margin: "1rem"}}>
+              <SC.WelcomeText>The Game</SC.WelcomeText>
+              <table>
+                <tr>
+                  <SC.TD>Correct answers:</SC.TD>
+                  <SC.TD>{user_score.filter(x => x.correct).length}</SC.TD>
+                </tr>
+                <tr>
+                  <SC.TD>Wrong answers:</SC.TD>
+                  <SC.TD>{user_score.filter(x => !x.correct).length}</SC.TD>
+                </tr>
+                <tr>
+                  <SC.TD>Skipped answers:</SC.TD>
+                  <SC.TD>{user_score.filter(x => x.skip).length}</SC.TD>
+                </tr>
+                <tr>
+                  <SC.TD>Hints used:</SC.TD>
+                  <SC.TD>{user_score.map(x => x = x.hints_used).reduce((acc,y) => acc + y)}</SC.TD>
+                </tr>
+                <tr>
+                  <SC.TD>Quickest response:</SC.TD>
+                  <SC.TD>{(user_score.map(x => x = x.time).sort((a,b) => a-b)[0])/1000 + " sec" }</SC.TD>
+                </tr>                
+                <tr>
+                  <SC.TD>Slowest response:</SC.TD>
+                  <SC.TD>{(user_score.map(x => x = x.time).sort((a,b) => a-b)[user_score.length-1])/1000 + " sec" }</SC.TD>
+                </tr>                
+                <tr>
+                  <SC.TD>Average time response:</SC.TD>
+                  <SC.TD>{((user_score.map(x => x = x.time).reduce((acc, x) => acc + x))/user_score.length/1000).toFixed(3) + " sec" }</SC.TD>
+                </tr>
+              </table>
+            </div>
+            <div style={{width: "50%", margin: "1rem", position: "relative"}}>
+              <SC.WelcomeText>Score:</SC.WelcomeText>
+              <SC.ScoreText>{user_score.map(score => score = score.score).reduce((acc,score) => acc + score).toLocaleString()} <span>points</span></SC.ScoreText>
+              <SC.PlayButton summary onClick={() => close_summary()}>Close</SC.PlayButton>
+            </div>
+          </div>
+        )}
+      </SC.Popup>
+    </Fragment>
+  )
 }
-
-// export default function TableTop({ game_status, startGame, stopGame }) {
-//   const [difficultyChoice, showDifficultyChoice] = React.useState(false)
-//   const stop = () => {
-//     showDifficultyChoice(false);
-//     return stopGame();
-//   }
-//   return (
-//     <Table top>
-//       {(!game_status && difficultyChoice) && (
-//         <>
-//         <Typography link>set difficulty: </Typography>
-//         <Typography link onClick={() => startGame(0)}>easy</Typography>
-//         <Typography link onClick={() => startGame(1)}>medium</Typography>
-//         <Typography link onClick={() => startGame(2)}>hard</Typography>
-//         </>
-//       )}
-//       {(!game_status && !difficultyChoice) && (
-//         <Typography link onClick={() => showDifficultyChoice(true)}>start a new challenge</Typography>
-//       )}
-
-//       {game_status && (
-//         <>
-//           <Typography link href="/">get a hint</Typography>
-//           <Typography link href="/">skip</Typography>
-//           <Typography link onClick={stop}>quit</Typography>
-//         </>
-//       )}
-//     </Table>
-//   );
-// }

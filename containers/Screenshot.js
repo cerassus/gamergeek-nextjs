@@ -1,15 +1,14 @@
 import { connect } from "react-redux";
 import Screenshot from "../components/styled-components/Screenshot"
-import { screenshotsLoaded, screenshotsAreLoading } from "../redux/actions"
+import { resumeGame } from "../redux/actions"
 
 const mapState = state => ({
+    user_score: state.user_score,
     game_status: state.game_status,
-    screenshots_loaded: state.screenshots_loaded,
 })
 
 const mapDispatch  = dispatch => ({
-    screenshotsLoaded: () => dispatch(screenshotsLoaded()),
-    screenshotsAreLoading: () => dispatch(screenshotsAreLoading()),
+    resumeGame: () => dispatch(resumeGame()),
 })
 
   

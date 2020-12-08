@@ -4,7 +4,7 @@ const HeaderContainer = styled.header`
     display: flex;
     align-items: baseline;
     padding: 3vw;
-    @media (max-width: 1200px) {
+    @media (max-width: 1000px) {
         flex-direction: column;
     }
     `
@@ -52,6 +52,7 @@ const StandardContainer = styled.div`
 export default function Container({type, ...rest}) {
     return (
         (type === "header" && <HeaderContainer {...rest} />) ||
-        (type === "main" ? <MainContainer {...rest}/> : <StandardContainer type={type} {...rest}/>)
+        (type === "main" ? <MainContainer {...rest}/> : 
+        <StandardContainer type={type} {...rest}/>)
     )
 }

@@ -19,7 +19,7 @@ const ScreenshotContainer = styled.div`
     `
 
 const SingleScreenshot = styled.img`
-        display: ${props => props.loaded === 'loaded' ? `block`: `none`};
+        display: ${props => !props.status ? `block`: `none`};
         width: 97%;
         transform: translate(1.5%, 2%);
         margin: auto;
@@ -40,7 +40,7 @@ const SingleScreenshot = styled.img`
             left: -194%;
         }
         ${props => (
-            props.loaded === 'loaded' && (
+            !props.status && (
               props.index === 0 ? `
                 &:first-child {
                     z-index: 10;
@@ -74,22 +74,22 @@ const SingleScreenshot = styled.img`
     `
 
 
-export default function Screenshot({src, index, game_status, screenshotsLoaded, screenshotsAreLoading, screenshots_loaded}) { 
+export default function Screenshot({src, index, game_status, resumeGame, user_score}) { 
     const [loading, setLoading] = React.useState(0)
     React.useEffect(() => {
         if(loading >= 3) {
             setLoading(0)
-            screenshotsLoaded()
+            resumeGame()
        }   
     }, [loading])
     return (
         <ScreenshotContainer >
-            {(game_status && src) ? 
+            {(game_status.isStarted && src) ? 
             <>
-              {  src.map((img, i) => <SingleScreenshot key={i} src={img} alt="screenshot_img" onLoad={() => setLoading(loading+1)} loaded={screenshots_loaded} index={index}/>)   }
-              {  screenshots_loaded === 'loading' && <Logo big loading={screenshots_loaded} /> }
+              {  src.map((img, i) => <SingleScreenshot key={i} src={img} alt="screenshot_img" onLoad={() => setLoading(loading+1)} status={game_status.isLoading} index={index}/>)   }
+              {  game_status.isLoading && <Logo big status={game_status.isLoading} color={user_score.length !== 0 ? user_score[user_score.length-1].correct : false} user_score={user_score.length >0 ? user_score[user_score.length-1].score : ``} /> }
             </>
-            : <Logo big /> }
+            : <Logo big status={game_status.isLoading} /> }
         </ScreenshotContainer>
     )
 }

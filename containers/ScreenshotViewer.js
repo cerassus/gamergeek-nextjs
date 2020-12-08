@@ -6,4 +6,5 @@ const mapState = state => ({
     game_status: state.game_status,
 })
 
+
 export default connect(mapState)(ScreenshotViewer);

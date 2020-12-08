@@ -1,27 +1,29 @@
-import Layout from "../layout/Layout"
-import ScreenshotViewer from "../containers/ScreenshotViewer"
-import Table from "../containers/Table"
-
-
-
+import Layout from "../layout/Layout";
+import ScreenshotViewer from "../containers/ScreenshotViewer";
+import Table from "../containers/Table";
 
 export default function HomePage() {
   return (
-    <>
-    <Layout title="Challenge">
+      <Layout title="Challenge">
         <ScreenshotViewer />
         <Table />
-        {/* <TableTop />
-        <TableBottom /> */}
-    </Layout>
-    </>
-  )
-}
+      </Layout>
+    )
+  }
 
-// Linki z TableTop niewidoczne w trakcie ładowania
-// Dodać Spinner albo ZIELONY EKRAN = YES/ CZERWONY = WRONG / ŻÓŁTY = SKIP w zależności od odpowiedzi, pomiędzy ładowaniem screenshotów na ScreenhotViewer
-// Dodać counter czasu gry
-// Dodać counter czasu odpowiedzi
-// Zliczanie punktacji
-// Dodanie POPUPa z podsumowaniem gry, który pojawia się po upływie czasu lub po kliknięciu QUIT
-// HINTS
+  
+// Split Popups (summary i prepare)
+
+
+// When Table is unmount then endGame without Summary
+
+// add 'Enter press' listener to popups
+// Main counter miliseconds - font size down
+// Randomize possible answers
+
+// Correct logo in header
+
+// SSR
+// MongoDB
+
+// Add more animations

@@ -17,13 +17,17 @@ const P = styled.p`
   color: var(--white);
   font-size: clamp(1.2rem, 2.5vw, 1.6rem);
   text-align: justify;
-  padding: 3vw;
+  ${(props) => props.padding && `padding: ${props.padding};`}
 `;
 
 const HintText = styled.div`
-  font-family: Montserrat;
+  font-family:  ${props => props.gamefont ? `Ruda` : 'Montserrat'};
   font-size: clamp(1.2rem, 2.5vw, 1.6rem);
   letter-spacing: 0.05em;
+  text-transform: ${props => props.uppercase ? `uppercase` : 'capitalize'};
+  & span {
+    font-weight: 600;
+  }
 `;
 
 const SiteLink = styled.a`
@@ -42,14 +46,12 @@ const SiteLink = styled.a`
     text-align: center;
     line-height: clamp(1.7rem, 2.5vw, 2.2rem);
     max-width: 20%;
-    ${(props) => props.link && `text-transform: uppercase`};
     border-bottom: 2px solid transparent;
-    ${(props) =>
-      props.answer &&
-      `
-            font-family: Montserrat; 
-            font-size: clamp(1.2rem, 2.5vw, 1.6rem); 
-            `};
+    ${(props) => props.link && `text-transform: uppercase`};
+    ${(props) => props.answer && `
+      font-family: Montserrat; 
+      font-size: clamp(1.2rem, 2.5vw, 1.6rem); 
+    `};
   }
   &:hover {
     color: var(--white);
@@ -62,8 +64,8 @@ export default function Typography(props) {
   return (
     (props.h1 && <H1>{props.children}</H1>) ||
     (props.h2 && <H2>{props.children}</H2>) ||
-    (props.p && <P>{props.children}</P>) ||
-    (props.hint && <HintText>{props.children}</HintText>) ||
+    (props.p && <P {...props}>{props.children}</P>) ||
+    (props.hint && <HintText {...props}>{props.children}</HintText>) ||
     (props.answer && <SiteLink {...props}>{props.children}</SiteLink>) ||
     (props.link ? <SiteLink {...props}>{props.children}</SiteLink> : <div />)
   );
