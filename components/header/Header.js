@@ -1,4 +1,4 @@
-import Logo from "../styled-components/Logo";
+import Logo from "../../containers/Logo";
 import Typography from "../styled-components/Typography";
 import Container from "../styled-components/Container";
 import Navigation from "../styled-components/Navigation";

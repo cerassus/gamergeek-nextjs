@@ -1,6 +1,6 @@
-import Layout from "../layout/Layout";
-import ScreenshotViewer from "../containers/ScreenshotViewer";
-import Table from "../containers/Table";
+import Layout from "../layout/Layout"
+import ScreenshotViewer from "../components/main/challenge/ScreenshotViewer"
+import Table from "../containers/Table"
 
 export default function HomePage() {
   return (

@@ -1,12 +1,10 @@
 import styled from "styled-components"
-import Logo from "./Logo"
-import React from "react"
+import Logo from "../../containers/Logo"
+import { useState, useEffect, Fragment} from "react"
 
 const ScreenshotContainer = styled.div`
     background-color: var(--black);
     width: calc(85% - 4rem);
-    //height: 0;
-    //padding-bottom: calc(47.75% - (0.5 * 4rem));
     padding-bottom: 2vw;
     border-radius: 5px;
     box-shadow: 0 0 25px #FFF;
@@ -73,23 +71,28 @@ const SingleScreenshot = styled.img`
         )}
     `
 
-
-export default function Screenshot({src, index, game_status, resumeGame, user_score}) { 
-    const [loading, setLoading] = React.useState(0)
-    React.useEffect(() => {
+export default function Screenshot({random_game, index, game_status, resumeGame}) { 
+    const [loading, setLoading] = useState(0)
+    useEffect(() => {
         if(loading >= 3) {
             setLoading(0)
             resumeGame()
        }   
     }, [loading])
     return (
-        <ScreenshotContainer >
-            {(game_status.isStarted && src) ? 
-            <>
-              {  src.map((img, i) => <SingleScreenshot key={i} src={img} alt="screenshot_img" onLoad={() => setLoading(loading+1)} status={game_status.isLoading} index={index}/>)   }
-              {  game_status.isLoading && <Logo big status={game_status.isLoading} color={user_score.length !== 0 ? user_score[user_score.length-1].correct : false} user_score={user_score.length >0 ? user_score[user_score.length-1].score : ``} /> }
-            </>
-            : <Logo big status={game_status.isLoading} /> }
+        <ScreenshotContainer>
+        {random_game ? 
+            <Fragment>
+                {random_game.screenshots.map((img, i) => 
+                    <SingleScreenshot 
+                        key={i} src={img} 
+                        alt="screenshot_img" 
+                        onLoad={() => setLoading(loading + 1)} 
+                        status={game_status.isLoading} 
+                        index={index}/>)   }
+                {game_status.isLoading && <Logo big /> }
+            </Fragment>
+            : <Logo big /> }
         </ScreenshotContainer>
     )
 }

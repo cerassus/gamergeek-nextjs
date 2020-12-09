@@ -1,5 +1,5 @@
 import styled from "styled-components"
-import React from "react"
+import { Fragment } from "react"
 
 const LogoContainer = styled.div`
     width: ${props => props.big ? `min(300px, 20vw)` : `50px`};
@@ -27,17 +27,16 @@ const SmallBall = styled.div`
     left: 12.5%;
     background: ${props => !props.color ? `rgba(230, 63, 63, 0.85)` : `rgba(40, 170, 50, 0.85)`};
     border-radius: 50%;
-    ${props => (props.status && props.big) && `
+    ${props => props.status && props.big && `
         animation: resizeBall 1s linear 0s infinite;
         animation-play-state: running;
     `};
     `
-
 const MiddleBall = styled.div`
     width: 100%;
     height: 100%;
     animation: rolling 1s ease-in-out 0s infinite;
-    animation-play-state: ${props => props.status ? `running` : `paused`};
+    animation-play-state: ${props => (props.status && props.big) ? `running` : `paused`};
     `
 const Icon = styled.div`
     font-size: 3rem;
@@ -47,14 +46,22 @@ const Icon = styled.div`
     }
     `
 
-export default function Logo({big, status = false, color = false, user_score}) {
+export default function Logo({big = false, game_status, last_users_answer}) {
     return (
         <LogoContainer big={big} >
             <BigBall big={big} >
-                <MiddleBall status={status}>
-                    <SmallBall big={big} color={color} status={status}>
-                        <Icon>{big && user_score === 0 ? `Wrong` : user_score}</Icon>
-                        <Icon>{big && user_score > 0 ? `points` : ``}</Icon>
+                <MiddleBall big={big} status={game_status.isLoading}>
+                    <SmallBall 
+                        big={big} 
+                        color={big && last_users_answer ? last_users_answer.correct : false} 
+                        status={game_status.isLoading}
+                    >
+                        {game_status.isLoading && big && (
+                            <Fragment>
+                                <Icon>{last_users_answer.correct ? last_users_answer.score : last_users_answer.title ? `Wrong` : ``}</Icon>
+                                <Icon>{last_users_answer.score > 0 ? `points` : ``}</Icon>                                
+                            </Fragment>
+                        )}
                     </SmallBall>
                 </MiddleBall>
             </BigBall>
