@@ -1,7 +1,7 @@
 import Header from "../components/header/Header"
 import Head from "../components/header/Head"
 import Container from "../components/styled-components/Container"
-import Hints from "../containers/Hints"
+import Hints from "../redux_containers/Hints"
 import { Fragment } from "react"
 
 export default function Layout({ children, title }) {

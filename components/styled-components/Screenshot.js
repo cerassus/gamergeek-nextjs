@@ -1,5 +1,5 @@
 import styled from "styled-components"
-import Logo from "../../containers/Logo"
+import Logo from "../../redux_containers/Logo"
 import { useState, useEffect, Fragment} from "react"
 
 const ScreenshotContainer = styled.div`
@@ -71,7 +71,12 @@ const SingleScreenshot = styled.img`
         )}
     `
 
-export default function Screenshot({random_game, index, game_status, resumeGame}) { 
+export default function Screenshot({
+    game_is_started,
+    game_is_loading,
+    index, 
+    screenshots, 
+    resumeGame }) { 
     const [loading, setLoading] = useState(0)
     useEffect(() => {
         if(loading >= 3) {
@@ -80,19 +85,19 @@ export default function Screenshot({random_game, index, game_status, resumeGame}
        }   
     }, [loading])
     return (
-        <ScreenshotContainer>
-        {random_game ? 
-            <Fragment>
-                {random_game.screenshots.map((img, i) => 
+      <ScreenshotContainer>
+        {game_is_started 
+            ? <Fragment>
+                {screenshots.map((img, i) => 
                     <SingleScreenshot 
                         key={i} src={img} 
                         alt="screenshot_img" 
                         onLoad={() => setLoading(loading + 1)} 
-                        status={game_status.isLoading} 
+                        status={game_is_loading} 
                         index={index}/>)   }
-                {game_status.isLoading && <Logo big /> }
-            </Fragment>
+                {game_is_loading && <Logo big /> }
+              </Fragment>
             : <Logo big /> }
-        </ScreenshotContainer>
+      </ScreenshotContainer>
     )
 }

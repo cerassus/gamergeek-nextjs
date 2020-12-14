@@ -1,8 +1,6 @@
 import styled from "styled-components";
-import { useEffect, useState } from "react";
-import Typography from "./Typography";
 
-const Background = styled.div`
+export const Background = styled.div`
   height: 100vh;
   width: 100vw;
   top: 0;
@@ -15,7 +13,7 @@ const Background = styled.div`
       ? `opacity: 1; visibility: visible;`
       : `opacity: 0; visibility: hidden;`}
 `;
-const PopupContainer = styled.div`
+export const PopupContainer = styled.div`
   width: min(75rem, 95%);
   position: absolute;
   top: 50%;
@@ -26,14 +24,14 @@ const PopupContainer = styled.div`
   font-family: "Ruda";
   font-weight: bold;
 `;
-const TopBar = styled.div`
+export const TopBar = styled.div`
   position: relative;
   padding: 2rem;
   text-align: center;
   background: var(--dark-grey);
   border-radius: 3px 3px 0 0;
 `;
-const Close = styled.div`
+export const Close = styled.div`
   position: absolute;
   top: 50%;
   right: 5%;
@@ -46,7 +44,7 @@ const Close = styled.div`
     transform: translate(0, -50%) rotate(90deg);
   }
 `;
-const Content = styled.div`
+export const Content = styled.div`
   padding: 3rem;
   display: flex;
   flex-direction: column;
@@ -124,59 +122,3 @@ export const ScoreText = styled.div`
     font-size: 2rem;
   }
 `
-
-
-export function Popup({title, children, switch_popup, popupIsClosed}) {
-  const [visibility, setVisibility] = useState(false);
-  const handleClose = () => {
-    setVisibility(false)
-    popupIsClosed()
-  }
-  useEffect(() => {
-    setVisibility(switch_popup)
-  },[switch_popup])
-  return (
-    <Background visibility={visibility}>
-      <PopupContainer>
-        <TopBar>
-          <Close onClick={handleClose}>&times;</Close>
-          <Typography hint uppercase gamefont>
-            {title}
-          </Typography>
-        </TopBar>
-        <Content>
-          {children}
-        </Content>
-      </PopupContainer>
-    </Background>
-  );
-}
-
-
-
-
-
-// {askUsername ? (
-//   <>
-//     <WelcomeText>
-//       Let’s see how good you are! Starting from your name...
-//     </WelcomeText>
-//     <TextInput type="text" onChange={handleTyping} />
-//     <TextInputHint visible={warning}>Wrong nickname</TextInputHint>
-//     <PlayButton onClick={() => setAskUsername(false)}>
-//       Let's Play!
-//     </PlayButton>
-//   </>
-// ) : (
-//   <>
-//     <WelcomeText center>Set game difficulty...</WelcomeText>
-//     {game_difficulty.map((diffe, i) => (
-//       <PlayButton
-//         key={"key0011" + i}
-//         onClick={() => setDifficulty(diffe)}
-//       >
-//         {diffe}
-//       </PlayButton>
-//     ))}
-//   </>
-// )}

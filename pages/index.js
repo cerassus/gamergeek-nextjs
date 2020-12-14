@@ -1,12 +1,10 @@
 import Layout from "../layout/Layout"
-import ScreenshotViewer from "../components/main/challenge/ScreenshotViewer"
-import Table from "../containers/Table"
+import Challenge from "../redux_containers/Challenge"
 
 export default function HomePage() {
   return (
       <Layout title="Challenge">
-        <ScreenshotViewer />
-        <Table />
+        <Challenge />
       </Layout>
     )
   }

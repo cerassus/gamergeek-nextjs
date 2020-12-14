@@ -1,28 +1,3 @@
-
-export const fetchNewGameDatabase = async (difficulty) => {
-    const database_array = []
-    let page = 0
-    switch(difficulty) {
-        case 0: {page = 1; break;}
-        case 1: {page = 4; break;}
-        case 2: {page = 7; break;}
-        default: return []
-    }
-    for(let i=0; i<3; i++) {
-        try {
-            const apishot = await fetch(`https://api.rawg.io/api/games?page=${page+i}&page_size=40`)
-            const data = await apishot.json()
-            database_array.push(data.results.map(game => game = game.id))
-        }
-        catch(error) {
-            console.log(error)
-            return []
-        }
-    }
-    console.log(database_array.flat())
-    return database_array.flat()
-}
-
 export const getGameDetails = async (game) => {
     console.log(game)
     try {
@@ -75,7 +50,7 @@ const getSimilarGames = async (game) => {
     try {
         const apishot = await fetch(`https://api.rawg.io/api/games/${game.id}/suggested`)
         const suggested = await apishot.json()
-        const answers = [...pick3randomsFromArray(suggested.results.map(game => game = game.name)), game.name]
+        const answers = [...pick3randomsFromArray(suggested.results.map(game => game = game.name)), game.name].sort()
         return {
             ...game,
             answers: [ ...answers]

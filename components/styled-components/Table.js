@@ -1,7 +1,8 @@
 import styled from "styled-components";
 
 const TableContainer = styled.div`
-position: relative;
+  position: relative;
+  border-radius: 5px;
   ${(props) =>
     props.top &&
     `
@@ -15,18 +16,20 @@ position: relative;
         background: linear-gradient(180deg, rgba(80, 80, 80, 0.25) 15%, rgba(196, 196, 196, 0) 88%);
         height: 12.5rem;
         `}
-    ${(props) =>
-    props.hint &&
-    `
-        position: absolute;
-        bottom: 0;
-        background: linear-gradient(0deg, rgba(94, 90, 0, 0.25) 15%, rgba(255, 255, 255, 0) 88%);
-        height: 12.5rem;
-        width: 100%;
-        `}
-    border-radius: 5px;
 `
-
+const HintContainer = styled.footer`
+    position: relative;
+    border-radius: 5px;
+    ${(props) =>
+        props.hint &&
+        `
+            position: absolute;
+            bottom: 0;
+            background: linear-gradient(0deg, rgba(94, 90, 0, 0.25) 15%, rgba(255, 255, 255, 0) 88%);
+            height: 12.5rem;
+            width: 100%;
+            `}
+`
 const TableNav = styled.div`
     position: absolute;
     left: 0;
@@ -41,10 +44,18 @@ const TableNav = styled.div`
 
 export default function Table({ ...props }) {
   return (
+    props.hint ? (
+    <HintContainer {...props}> : 
+      <TableNav {...props}>
+        {props.children}
+      </TableNav>
+    </HintContainer>
+    ) : (
     <TableContainer {...props}>
       <TableNav {...props}>
-          {props.children}
+        {props.children}
       </TableNav>
     </TableContainer>
+    )
   );
 }

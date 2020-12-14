@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { useState, useEffect, Fragment } from "react";
+import { useState, useEffect } from "react";
 
 const CounterContainer = styled.div`
   text-transform: lowercase;
@@ -11,12 +11,12 @@ const CounterContainer = styled.div`
 `;
 
 export default function MainCounter({ game_status, endGame }) {
-  const [counter, setCounter] = useState((15).toPrecision(5));
+  const [counter, setCounter] = useState((30).toPrecision(5));
   const [didMount, setDidMount] = useState(false);
 
   useEffect(() => {
     !game_status.isStarted && 
-      setCounter((15).toPrecision(5));
+      setCounter((30).toPrecision(5));
     const startCounting =
       didMount &&
       game_status.isStarted &&

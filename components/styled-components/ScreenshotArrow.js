@@ -3,7 +3,7 @@ import styled from "styled-components"
 const ArrowContainer = styled.div`
     position: relative;
     width: 4rem;
-    display: ${props => props.game_status.isStarted ? `block` : `none`};
+    display: ${props => props.game_is_started ? `block` : `none`};
     &:hover {
         cursor: pointer;
     }

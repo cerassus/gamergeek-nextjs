@@ -1,9 +1,9 @@
-import Table from "../../styled-components/Table";
-import Typography from "../../styled-components/Typography";
+import Table from "../../../styled-components/Table";
+import Typography from "../../../styled-components/Typography";
 import { useState, useEffect, Fragment } from "react";
-import { getGameDetails, fetchNewGameDatabase  } from "../../../global/fetch";
+import { getGameDetails, fetchNewGameDatabase  } from "../../../../global/fetch";
 import moment from 'moment'
-import * as SC from "../../styled-components/Popup"
+import * as SC from "../../../styled-components/Popup"
 
 const game_difficulty = ["easy", "medium", "hard"];
 
@@ -109,6 +109,7 @@ export default function TableComponent({
   }, [game_database])
     
   useEffect(() => () => {
+    console.log('i am')
     clearUserScore()
     endGame()
   }, [])

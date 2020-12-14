@@ -81,3 +81,5 @@ export const scores = [
 export const game_database = [...games.results].map(game => game = {
     id: game.id,
 })
+
+

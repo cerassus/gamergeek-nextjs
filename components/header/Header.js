@@ -1,9 +1,9 @@
-import Logo from "../../containers/Logo";
-import Typography from "../styled-components/Typography";
-import Container from "../styled-components/Container";
-import Navigation from "../styled-components/Navigation";
-import Link from "next/link";
-import MainCounter from "../../containers/MainCounter";
+import Logo from "../../redux_containers/Logo"
+import Typography from "../styled-components/Typography"
+import Container from "../styled-components/Container"
+import Navigation from "../styled-components/Navigation"
+import Link from "next/link"
+import MainCounter from "../../redux_containers/MainCounter"
 
 export default function Header() {
   return (

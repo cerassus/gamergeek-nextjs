@@ -1,6 +1,15 @@
 import { combineReducers } from "redux"
 import * as actions from "./actions"
 
+const test = (state = [], action) => {
+    switch(action.type) {
+        case actions.TEST: {
+            console.log(action.payload)
+            return action.payload
+        }
+        default: return state
+    } 
+}
 
 const game_database = (state = [], action) => {
     switch(action.type) {
@@ -16,8 +25,8 @@ const game_database = (state = [], action) => {
 const random_game = (state = "", action) => {
     switch(action.type) {
         case actions.SHOW_RANDOM_GAME: return action.game 
-        case actions.START_LOADING: return ""
-        case actions.END_GAME: return ""
+       // case actions.START_LOADING: return ""
+        case actions.CLEAR_USER_SCORE: return ""
         default: return state
     }
 }
@@ -39,7 +48,21 @@ const hints_array = (state = [], action) => {
             console.log([...state, action.hint])
             return [...state, action.hint]
         }
-        case actions.CLEAR_HINT: return []
+        case actions.START_LOADING:
+        case actions.END_GAME: return []
+        default: return state
+    }
+}
+
+const popup_to_show = (state = false, action) => action.type === actions.SHOW_POPUP 
+    ? action.popup 
+    : state
+
+const hint_counter = (state = false, action) => {
+    switch(action.type) {
+        case actions.SET_HINT_COUNTER: return state + 1
+        case actions.START_LOADING: 
+        case actions.CLEAR_USER_SCORE: return 0
         default: return state
     }
 }
@@ -73,4 +96,7 @@ export default combineReducers({
   hints_array,
   game_status,
   game_database,
+  popup_to_show,
+  hint_counter, 
+  test,
 })
