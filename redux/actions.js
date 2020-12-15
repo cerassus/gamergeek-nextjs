@@ -1,81 +1,80 @@
 import { getGameDetails } from "../global/fetchGameDetails"
 import store  from "./store"
 
-export const START_GAME = "START_GAME";
-export const RESUME_GAME = "RESUME_GAME";
-export const END_GAME = "END_GAME";
-export const SHOW_RANDOM_GAME = "SHOW_RANDOM_GAME";
-export const NEW_ANSWER = "NEW_ANSWER";
-export const CLEAR_USER_SCORE = "CLEAR_USER_SCORE";
-export const START_LOADING = "START_LOADING";
-export const SHOW_HINT = "SHOW_HINT";
-export const NEW_GAME_DATABASE = "NEW_GAME_DATABASE";
-export const REMOVE_ITEM = "REMOVE_ITEM";
-export const SHOW_POPUP = "SHOW_POPUP";
-export const SET_HINT_COUNTER = "SET_HINT_COUNTER";
+const START_GAME = "START_GAME";
+const RESUME_GAME = "RESUME_GAME";
+const END_GAME = "END_GAME";
+const SHOW_RANDOM_GAME = "SHOW_RANDOM_GAME";
+const NEW_ANSWER = "NEW_ANSWER";
+const CLEAR_USER_SCORE = "CLEAR_USER_SCORE";
+const START_LOADING = "START_LOADING";
+const SHOW_HINT = "SHOW_HINT";
+const NEW_GAME_DATABASE = "NEW_GAME_DATABASE";
+const REMOVE_ITEM = "REMOVE_ITEM";
+const SHOW_POPUP = "SHOW_POPUP";
+const SET_HINT_COUNTER = "SET_HINT_COUNTER";
 
-export const TEST = "TEST";
+const TEST = "TEST";
 
-export const startGame = () => ({
+const startGame = () => ({
     type: START_GAME,
 })
 
-export const resumeGame = () => ({
+const resumeGame = () => ({
     type: RESUME_GAME,
 })
 
-export const endGame = () => ({
+const endGame = () => ({
     type: END_GAME,
 })
 
-export const showRandomGame = (game) => ({
-    type: SHOW_RANDOM_GAME,
-    game,
-})
-
-export const pushNewAnswer = (answer) => ({
+const pushNewAnswer = (answer) => ({
     type: NEW_ANSWER,
     answer,
 })
 
-export const startLoading = () => ({
+const showRandomGame = (game = "") => ({
+    type: SHOW_RANDOM_GAME,
+    game,
+})
+const startLoading = () => ({
     type: START_LOADING,
 })
 
-export const showHint = (hint) => ({
+const showHint = (hint) => ({
     type: SHOW_HINT,
     hint,
 })
 
-export const clearUserScore = () => ({
+const clearUserScore = () => ({
     type: CLEAR_USER_SCORE,
 })
 
-export const newGameDatabase = (database) => ({
+const newGameDatabase = (database) => ({
     type: NEW_GAME_DATABASE,
     database,
 })
 
-export const removeItemFromDatabase = (index) => ({
+const removeItemFromDatabase = (index) => ({
     type: REMOVE_ITEM,
     index,
 })
 
-export const showPopup = (popup) => ({
+const showPopup = (popup) => ({
     type: SHOW_POPUP,
     popup,
 })
 
-export const setHintCounter = () => ({
+const setHintCounter = () => ({
     type: SET_HINT_COUNTER,
 })
 
-export const test = (payload) => ({
+const test = (payload) => ({
     type: TEST,
     payload,
 })
 
-export function loadNewQuestion(difficulty) {
+function loadNewQuestion(difficulty = 0) {
     return async function(dispatch) {
         const game_database = store.getState().game_database
         const randomIndex = Math.floor(Math.random() * game_database.length)
@@ -84,7 +83,7 @@ export function loadNewQuestion(difficulty) {
                 ? fetchNewGameDatabase(difficulty-1)
                 : dispatch(endGame()) 
         } else {
-          dispatch(showRandomGame(await getGameDetails(game_database[randomIndex])))
+          dispatch(showRandomGame(await getGameDetails(game_database[randomIndex]) || 'error')|| 'error')
           dispatch(removeItemFromDatabase(randomIndex))
         }
         async function fetchNewGameDatabase(difficulty) {
@@ -113,6 +112,12 @@ export function loadNewQuestion(difficulty) {
     }
 }
 
+export {
+     START_GAME, RESUME_GAME, END_GAME,SHOW_RANDOM_GAME, NEW_ANSWER, CLEAR_USER_SCORE ,
+     START_LOADING, SHOW_HINT, NEW_GAME_DATABASE, REMOVE_ITEM, SHOW_POPUP , SET_HINT_COUNTER ,TEST,
+     startGame, resumeGame, endGame ,pushNewAnswer, showRandomGame, startLoading,showHint ,
+     clearUserScore, newGameDatabase , removeItemFromDatabase , showPopup , setHintCounter,
+     test , loadNewQuestion }
 
 
 
@@ -132,7 +137,7 @@ export function loadNewQuestion(difficulty) {
 //     }
 // }
 
-// export function fetchNewGameDatabase(difficulty) {
+// function fetchNewGameDatabase(difficulty) {
 //     return async function(dispatch) {
 //         const database_array = []
 //         let page = 0

@@ -24,7 +24,7 @@ const game_database = (state = [], action) => {
 
 const random_game = (state = "", action) => {
     switch(action.type) {
-        case actions.SHOW_RANDOM_GAME: return action.game 
+        case actions.SHOW_RANDOM_GAME: return action.game || ""
        // case actions.START_LOADING: return ""
         case actions.CLEAR_USER_SCORE: return ""
         default: return state
