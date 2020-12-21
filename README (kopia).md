@@ -12,7 +12,7 @@ Use game database from https://rawg.io/ API
 
 Main functionality:
 
-- Player sets username and game difficulty: EASY, MEDIUM, HARD
+- Player sets username nad game difficulty: EASY, MEDIUM, HARD
 - Game loads 3 screenshots per one question
 - Player can choose between 4 possible answers
 - Player can get a hint, but no more ten 3 per one question
@@ -24,7 +24,7 @@ Main functionality:
 - Use MongoDB to store players scores
 - Add SCORE LEADERBOARD and HELP subpages
 
-You should use Next.js and SSR. Any other libraries are most welcome.
+You should use Next.js and use SSR. Any other libraries are most welcome.
 
 # Downloading code and running on your machine
 
@@ -40,7 +40,7 @@ Open your browser and enter the address "localhost:3000"
 
 # Website link on the server
 
-PROJECT IN PROGRESS
+https://gamergeek.cerassus.eu/
 
 # Used Technologies
 

@@ -13,7 +13,6 @@ const NEW_GAME_DATABASE = "NEW_GAME_DATABASE";
 const REMOVE_ITEM = "REMOVE_ITEM";
 const SHOW_POPUP = "SHOW_POPUP";
 const SET_HINT_COUNTER = "SET_HINT_COUNTER";
-
 const TEST = "TEST";
 
 const startGame = () => ({
@@ -33,7 +32,7 @@ const pushNewAnswer = (answer) => ({
     answer,
 })
 
-const showRandomGame = (game = "") => ({
+const showRandomGame = (game) => ({
     type: SHOW_RANDOM_GAME,
     game,
 })
@@ -119,51 +118,4 @@ export {
      clearUserScore, newGameDatabase , removeItemFromDatabase , showPopup , setHintCounter,
      test , loadNewQuestion }
 
-
-
-
-
-
-// export function loadNewQuestion() {
-//     return async function(dispatch) {
-//         const game_database = store.getState().game_database
-//         const randomIndex = Math.floor(Math.random() * game_database.length)
-//         if(game_database === 0) {
-//           dispatch(endGame()) 
-//         } else {
-//             dispatch(showRandomGame(await getGameDetails(game_database[randomIndex])))
-//             dispatch(removeItemFromDatabase(randomIndex))
-//         }
-//     }
-// }
-
-// function fetchNewGameDatabase(difficulty) {
-//     return async function(dispatch) {
-//         const database_array = []
-//         let page = 0
-//         switch(difficulty) {
-//             case 0: {page = 1; break;}
-//             case 1: {page = 4; break;}
-//             case 2: {page = 7; break;}
-//             default: return []
-//         }
-//         for(let i=0; i<3; i++) {
-//             try {
-//                 const apishot = await fetch(`https://api.rawg.io/api/games?page=${page+i}&page_size=40`)
-//                 const data = await apishot.json()
-//                 database_array.push(data.results.map(game => game = game.id))
-//             }
-//             catch(error) {
-//                 console.log(error)
-//                 return []
-//             }
-//         }
-//         console.log('rgfg2')
-//          await dispatch(newGameDatabase(database_array.flat()))
-//         return dispatch(loadNewQuestion())
-//     }
-// }
-
-
-///////////// COMBINE LOAD QUESTION AND FETCHNEWGAME DB
 

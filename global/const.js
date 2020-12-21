@@ -1,5 +1,3 @@
-import games from "./games"
-
 export const scores = [
     {
       "Name": "Aymer Dorhana",
@@ -77,9 +75,5 @@ export const scores = [
       "Score": 4050
     }
   ]
-
-export const game_database = [...games.results].map(game => game = {
-    id: game.id,
-})
 
 
