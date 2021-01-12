@@ -19,11 +19,11 @@ export default function Header({ clearUserScore, endGame }) {
         </Link>
       </Container>
       <Navigation>
-        <Link onClick={handleClick} href={`/leaderboard`}>
-          <a>score leaderboard</a>
+        <Link href={`/leaderboard`}>
+          <a onClick={handleClick} >score leaderboard</a>
         </Link>
-        <Link onClick={handleClick} href={`/help`}>
-          <a>help</a>
+        <Link href={`/help`}>
+          <a onClick={handleClick}>help</a>
         </Link>
         <MainCounter />
       </Navigation>

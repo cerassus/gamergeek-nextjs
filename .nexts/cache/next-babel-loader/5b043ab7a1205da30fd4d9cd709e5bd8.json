@@ -1,0 +1,1 @@
+{"ast":null,"code":"import { connect } from \"react-redux\";\nimport ScreenshotViewer from \"../components/main/challenge/ScreenshotViewer\";\n\nconst mapState = state => ({\n  random_game: state.random_game,\n  game_status: state.game_status\n});\n\nexport default connect(mapState)(ScreenshotViewer);","map":null,"metadata":{},"sourceType":"module"}

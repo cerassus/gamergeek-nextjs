@@ -1,0 +1,1 @@
+{"ast":null,"code":"import { connect } from \"react-redux\";\nimport ScreenshotArrow from \"../components/styled-components/ScreenshotArrow\";\n\nconst mapState = state => ({\n  game_is_started: state.game_status.isStarted\n});\n\nexport default connect(mapState)(ScreenshotArrow);","map":null,"metadata":{},"sourceType":"module"}

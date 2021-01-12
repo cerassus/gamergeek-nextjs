@@ -1,0 +1,1 @@
+{"ast":null,"code":"import { connect } from \"react-redux\";\nimport Header from \"../components/header/Header\";\n\nvar mapState = function mapState(state) {\n  return {\n    game_status: state.game_status\n  };\n};\n\nexport default connect(mapState)(Header);","map":null,"metadata":{},"sourceType":"module"}
