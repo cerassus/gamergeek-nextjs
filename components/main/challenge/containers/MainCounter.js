@@ -11,12 +11,12 @@ const CounterContainer = styled.div`
 `;
 
 export default function MainCounter({ game_status, endGame }) {
-  const [counter, setCounter] = useState((30).toPrecision(5));
+  const [counter, setCounter] = useState((60).toPrecision(5));
   const [didMount, setDidMount] = useState(false);
 
   useEffect(() => {
     !game_status.isStarted && 
-      setCounter((30).toPrecision(5));
+      setCounter((60).toPrecision(5));
     const startCounting =
       didMount &&
       game_status.isStarted &&
