@@ -40,7 +40,7 @@ Open your browser and enter the address "localhost:3000"
 
 # Website link on the server
 
-PROJECT IN PROGRESS
+https://gamergeek-nextjs.vercel.app/  Project in progress, currently working on app communication with MongoDB
 
 # Used Technologies
 
