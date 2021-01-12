@@ -1,4 +1,4 @@
-import Header from "../components/header/Header"
+import Header from "../redux_containers/Header"
 import Head from "../components/header/Head"
 import Container from "../components/styled-components/Container"
 import Hints from "../redux_containers/Hints"

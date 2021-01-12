@@ -5,7 +5,11 @@ import Navigation from "../styled-components/Navigation"
 import Link from "next/link"
 import MainCounter from "../../redux_containers/MainCounter"
 
-export default function Header() {
+export default function Header({ clearUserScore, endGame }) {
+  const handleClick = () => {
+    clearUserScore()
+    endGame()
+  }
   return (
     <Container type="header">
       <Container type="inline">
@@ -15,10 +19,10 @@ export default function Header() {
         </Link>
       </Container>
       <Navigation>
-        <Link href={`/leaderboard`}>
+        <Link onClick={handleClick} href={`/leaderboard`}>
           <a>score leaderboard</a>
         </Link>
-        <Link href={`/help`}>
+        <Link onClick={handleClick} href={`/help`}>
           <a>help</a>
         </Link>
         <MainCounter />
