@@ -13,7 +13,7 @@ const LeaderboardPage = ({data}) => {
   )
 }
 
-export async function getStaticProps() {
+export async function getServerSideProps() {
   const res = await fetch("https://gamergeek-nextjs.vercel.app/api/database");
   const json = await res.json();
   return {
