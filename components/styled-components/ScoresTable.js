@@ -23,7 +23,7 @@ const ScoreColumn = styled.td`
 `;
 
 export default function ScoresTable({ data }) {
-  const scores = data
+  const scores = data || []
   return (
     <table>
       <thead>
