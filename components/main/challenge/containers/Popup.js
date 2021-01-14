@@ -18,7 +18,6 @@ export default function Popup({
       showPopup(false)
       if(user_score.length > 0) {
         const res = await fetch('https://geek.cerassus.usermd.net/newRecord', {
-          code: "code",
           method: 'POST',
           body: JSON.stringify([{ 
             Name: user_name,
