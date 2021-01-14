@@ -8,9 +8,7 @@ connectMongoDatabase()
 
 export default (req, res) => {
   console.log('Querrying API...')
-    if (req.method === 'POST') {
-      console.log('POST...')
-    } else if (req.method === 'PUT'){
+    if (req.method === 'PUT'){
       Model.insertMany(JSON.parse(req.body))
     } else {
       Model.find().then(results => {res.status(200).json(results)})
