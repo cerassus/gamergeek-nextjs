@@ -13,7 +13,7 @@ const LeaderboardPage = ({data}) => {
 }
 
 export async function getServerSideProps() {
-  const res = await fetch("http://geek.cerassus.usermd.net/");
+  const res = await fetch("https://geek.cerassus.usermd.net/");
   const json = await res.json();
   return {
     props: {
