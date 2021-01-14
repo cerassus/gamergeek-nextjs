@@ -1,7 +1,7 @@
 import Layout from "../layout/Layout"
 import Container from "../components/styled-components/Container"
 import ScoresTable from "../components/styled-components/ScoresTable"
-import { useState } from "react"
+import { useState, useEffect } from "react"
 
 const LeaderboardPage = () => {
   const [data, setData] = useState([])
