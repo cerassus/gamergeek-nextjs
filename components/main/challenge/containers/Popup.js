@@ -17,8 +17,9 @@ export default function Popup({
   const addRecordToMongo = async () => {
       showPopup(false)
       if(user_score.length > 0) {
-        const res = await fetch('api/database', {
-          method: 'PUT',
+        const res = await fetch('http://geek.cerassus.usermd.net/newRecord', {
+          header: 'Access-Control-Allow-Methods',
+          method: 'POST',
           body: JSON.stringify([{ 
             Name: user_name,
             Date: new Date().toLocaleDateString(),
