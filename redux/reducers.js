@@ -1,5 +1,4 @@
 import { combineReducers } from "redux"
-import * as actions from "./actions"
 
 const START_GAME = "START_GAME";
 const RESUME_GAME = "RESUME_GAME";
@@ -14,14 +13,12 @@ const REMOVE_ITEM = "REMOVE_ITEM";
 const SHOW_POPUP = "SHOW_POPUP";
 const SET_HINT_COUNTER = "SET_HINT_COUNTER";
 const TEST = "TEST";
+const NEW_USER_NAME = "NEW_USER_NAME";
 
 
 const test = (state = [], action) => {
     switch(action.type) {
-        case TEST: {
-            console.log(action.payload)
-            return action.payload
-        }
+        case TEST: return action.payload
         default: return state
     } 
 }
@@ -39,7 +36,7 @@ const game_database = (state = [], action) => {
 
 const random_game = (state = "", action) => {
     switch(action.type) {
-        case SHOW_RANDOM_GAME: return "" || action.game
+        case SHOW_RANDOM_GAME: return action.game
         case CLEAR_USER_SCORE: return ""
         default: return state
     }
@@ -47,21 +44,19 @@ const random_game = (state = "", action) => {
     
 const user_score = (state = [], action) => {
     switch(action.type) {
-        case NEW_ANSWER: {
-            console.log([...state, action.answer])
-            return [...state, action.answer]
-        } 
+        case NEW_ANSWER: return [...state, action.answer]
         case CLEAR_USER_SCORE: return []
         default: return state
     }
 }
 
+const user_name = (state = "", action) => action.type === NEW_USER_NAME 
+    ? action.name
+    : state
+
 const hints_array = (state = [], action) => {
     switch(action.type) {
-        case SHOW_HINT: {
-            console.log([...state, action.hint])
-            return [...state, action.hint]
-        }
+        case SHOW_HINT: return [...state, action.hint]
         case START_LOADING:
         case END_GAME: return []
         default: return state
@@ -113,4 +108,5 @@ export default combineReducers({
   hint_counter, 
   test,
   random_game,
+  user_name,
 })

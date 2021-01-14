@@ -1,1 +1,0 @@
-{"ast":null,"code":"import { connect } from \"react-redux\";\nimport Challenge from \"../components/main/challenge/Challenge\";\n\nvar mapState = function mapState(state) {\n  return {\n    popup_to_show: state.popup_to_show\n  };\n};\n\nexport default connect(mapState)(Challenge);","map":null,"metadata":{},"sourceType":"module"}

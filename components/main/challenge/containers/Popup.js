@@ -9,14 +9,27 @@ export default function Popup({
     clearUserScore, 
     loadNewQuestion,
     popup_to_show,
-    startLoading
+    startLoading,
+    user_name,
+    user_score,
+    newUserName,
    }) {
-  const handleClose = () => {
-    showPopup(false)
-    clearUserScore()
+  const addRecordToMongo = async () => {
+      showPopup(false)
+      if(user_score.length > 0) {
+        const res = await fetch('https://gamergeek-nextjs.vercel.app/api/database', {
+          method: 'PUT',
+          body: JSON.stringify([{ 
+            Name: user_name,
+            Date: new Date().toLocaleDateString(),
+            Score: user_score.map(score => score = score.score).reduce((acc,score) => acc + score),
+          }])
+        })
+      }
   }
   const getNewDatabase = async (difficulty) => {
-    handleClose()
+    showPopup(false)
+    clearUserScore()
     startGame()
     startLoading()
     await loadNewQuestion(difficulty)
@@ -25,7 +38,7 @@ export default function Popup({
     <SC.Background visibility={true}>
       <SC.PopupContainer>
         <SC.TopBar>
-          <SC.Close onClick={() => handleClose()}>&times;</SC.Close>
+          <SC.Close onClick={() => addRecordToMongo()}>&times;</SC.Close>
           <Typography hint uppercase gamefont>
             {popup_to_show === 'userdata'
               ? `Hello gamergeek!`
@@ -37,10 +50,11 @@ export default function Popup({
         <SC.Content>
           {popup_to_show === 'userdata'
             ? <PopupUserData 
-                gameIsReadyToStart={(difficulty) => getNewDatabase(difficulty)} />
+                gameIsReadyToStart={(difficulty) => getNewDatabase(difficulty)} 
+                user={(username) => newUserName(username)}/>
             : popup_to_show === 'summary'
               ? <PopupSummary 
-                  close_summary_popup={() => handleClose()}  />
+                  close_summary_popup={() => addRecordToMongo()}  />
               : null}
         </SC.Content>
       </SC.PopupContainer>

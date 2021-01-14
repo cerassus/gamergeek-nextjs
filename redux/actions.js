@@ -14,6 +14,7 @@ const REMOVE_ITEM = "REMOVE_ITEM";
 const SHOW_POPUP = "SHOW_POPUP";
 const SET_HINT_COUNTER = "SET_HINT_COUNTER";
 const TEST = "TEST";
+const NEW_USER_NAME = "NEW_USER_NAME";
 
 const startGame = () => ({
     type: START_GAME,
@@ -36,6 +37,12 @@ const showRandomGame = (game) => ({
     type: SHOW_RANDOM_GAME,
     game,
 })
+
+const newUserName = (name) => ({
+    type: NEW_USER_NAME,
+    name,
+})
+
 const startLoading = () => ({
     type: START_LOADING,
 })
@@ -116,6 +123,6 @@ export {
      START_LOADING, SHOW_HINT, NEW_GAME_DATABASE, REMOVE_ITEM, SHOW_POPUP , SET_HINT_COUNTER ,TEST,
      startGame, resumeGame, endGame ,pushNewAnswer, showRandomGame, startLoading,showHint ,
      clearUserScore, newGameDatabase , removeItemFromDatabase , showPopup , setHintCounter,
-     test , loadNewQuestion }
+     test , loadNewQuestion, newUserName }
 
 

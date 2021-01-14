@@ -1,11 +1,18 @@
 import connectMongoDatabase from "../../mongo/connectDB"
+import mongoose from "mongoose"
 import Model from "../../mongo/model"
+
+console.log('mongoose state: ' + mongoose.connection.readyState)
 
 connectMongoDatabase()
 
 export default (req, res) => {
-  
-  Model.find().then(results => {res.status(200).json(results)
-  })
-
+  console.log('Querrying API...')
+    if (req.method === 'POST') {
+      console.log('POST...')
+    } else if (req.method === 'PUT'){
+      Model.insertMany(JSON.parse(req.body))
+    } else {
+      Model.find().then(results => {res.status(200).json(results)})
+    }
 }

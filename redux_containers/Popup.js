@@ -6,10 +6,13 @@ import {
     startGame,
     clearUserScore,
     startLoading,
+    newUserName,
  } from "../redux/actions"
 
 const mapState = state => ({
     popup_to_show: state.popup_to_show,
+    user_score: state.user_score,
+    user_name: state.user_name,
   })
 
 const mapDispatch = dispatch => ({
@@ -18,6 +21,7 @@ const mapDispatch = dispatch => ({
     startLoading: () => dispatch(startLoading()),
     loadNewQuestion: (db) => dispatch(loadNewQuestion(db)),
     clearUserScore: () => dispatch(clearUserScore()),
+    newUserName: (name) => dispatch(newUserName(name)),
 })
 
 export default connect(mapState, mapDispatch)(Popup);

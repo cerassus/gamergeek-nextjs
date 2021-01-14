@@ -1,7 +1,7 @@
 import { useState, useEffect, Fragment } from "react"
 import * as SC from "../../../styled-components/Popups"
 
-export default function PopupUserData({ gameIsReadyToStart }) {
+export default function PopupUserData({ gameIsReadyToStart, user }) {
   const game_difficulty = ["easy", "medium", "hard"]
   const [username, setUsername] = useState(false)
   const [warning, setWarning] = useState(false)
@@ -23,6 +23,9 @@ export default function PopupUserData({ gameIsReadyToStart }) {
       gameIsReadyToStart(difficulty)
     }
   },[difficulty])
+  useEffect(() => {
+    !usernamePanel && user(username)
+  }, [usernamePanel])
   return (
     <Fragment>
     {usernamePanel ? (

@@ -1,22 +1,26 @@
 import Layout from "../layout/Layout"
 import Container from "../components/styled-components/Container"
 import ScoresTable from "../components/styled-components/ScoresTable"
-import { scores } from "../global/const"
 
-export default function LeaderboardPage({game_results}) {
+const LeaderboardPage = ({data}) => {
   return (
     <Layout title="Help"> 
-
+        {console.log(data)}
         <Container type="standard" width="min(95rem, 95%)" flex="column" leaderboard>
-          <ScoresTable data={scores} />
+          <ScoresTable data={data} />
         </Container>
     </Layout>
   )
 }
 
+export async function getStaticProps() {
+  const res = await fetch("https://gamergeek-nextjs.vercel.app/api/database");
+  const json = await res.json();
+  return {
+    props: {
+      data: json,
+    },
+  };
+}
 
-// export async function getServerSideProps(context) {
-
-//   const game_results = [1,2,3]
-//   return  { props: { game_results } }
-// }
+export default LeaderboardPage

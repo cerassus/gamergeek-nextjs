@@ -1,1 +1,0 @@
-{"ast":null,"code":"import { connect } from \"react-redux\";\nimport PopupSummary from \"../components/main/challenge/popups/PopupSummary\";\n\nconst mapState = state => ({\n  user_score: state.user_score\n});\n\nexport default connect(mapState)(PopupSummary);","map":null,"metadata":{},"sourceType":"module"}

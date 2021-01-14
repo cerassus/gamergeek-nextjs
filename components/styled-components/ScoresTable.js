@@ -23,7 +23,7 @@ const ScoreColumn = styled.td`
 `;
 
 export default function ScoresTable({ data }) {
-  const scores = data.slice(0, 15);
+  const scores = data
   return (
     <table>
       <thead>
@@ -35,14 +35,14 @@ export default function ScoresTable({ data }) {
         </ScoreRow>
       </thead>
       <tbody>
-        {scores.map((score, i) => (
+        {scores.sort((a,b) => b.Score - a.Score).map((score, i) => (
           <ScoreRow key={i}>
             <ScoreColumn>{i + 1}</ScoreColumn>
             <ScoreColumn>{score.Name}</ScoreColumn>
             <ScoreColumn>{score.Date}</ScoreColumn>
             <ScoreColumn><span>{score.Score}</span> points</ScoreColumn>
           </ScoreRow>
-        ))}
+        )).slice(0, 15)}
       </tbody>
     </table>
   );
