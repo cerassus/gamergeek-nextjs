@@ -17,7 +17,7 @@ export default function Popup({
   const addRecordToMongo = async () => {
       showPopup(false)
       if(user_score.length > 0) {
-        const res = await fetch('https://gamergeek-nextjs.vercel.app/api/database', {
+        const res = await fetch('api/database', {
           method: 'PUT',
           body: JSON.stringify([{ 
             Name: user_name,
