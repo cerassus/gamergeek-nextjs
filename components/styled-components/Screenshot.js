@@ -88,7 +88,7 @@ export default function Screenshot({
       <ScreenshotContainer>
         {game_is_started 
             ? <Fragment>
-                {screenshots.map((img, i) => 
+                {Array.isArray(screenshots) && screenshots.map((img, i) => 
                     <SingleScreenshot 
                         key={i} src={img} 
                         alt="screenshot_img" 

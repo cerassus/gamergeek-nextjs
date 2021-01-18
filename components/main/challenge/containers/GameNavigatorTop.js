@@ -14,7 +14,6 @@ export default function GameNavigatorTop({
   setHintCounter,
   hintCounter,
   pushNewAnswer,
-  test
  }) {
   const [hints, setHints] = useState(false)
   const handleClickHint = () => {
@@ -42,11 +41,6 @@ export default function GameNavigatorTop({
       showPopup('summary')
     }
   }, [game_is_started])
-
-  useEffect(() => {
-    console.log(test)
-  }, [test])
-
   return (
       <Table top>    
         {

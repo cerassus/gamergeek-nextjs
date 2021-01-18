@@ -7,7 +7,6 @@ const mapState = state => ({
   game_is_loading: state.game_status.isLoading,
   random_game: state.random_game,
   hintCounter: state.hint_counter,
-  test: state.test,
 })
 
 const mapDispatch  = dispatch => ({

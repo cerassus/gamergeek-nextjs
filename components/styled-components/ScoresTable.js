@@ -26,8 +26,7 @@ const ScoreColumn = styled.td`
 function ScoresTable({ data }) {
   const [loading, setLoading] = useState(true)
   useEffect(() => {
-    //setLoading(false)
-    console.log(data)
+    Array.isArray(data) && setLoading(false)
   }, [data])
   return !loading ? (
     <table>
@@ -40,7 +39,7 @@ function ScoresTable({ data }) {
         </ScoreRow>
       </thead>
       <tbody>
-        {Array.isArray(data) && data.sort((a,b) => b.Score - a.Score).map((score, i) => (
+        {data.sort((a,b) => b.Score - a.Score).map((score, i) => (
           <ScoreRow key={i}>
             <ScoreColumn>{i + 1}</ScoreColumn>
             <ScoreColumn>{score.Name}</ScoreColumn>
@@ -56,17 +55,6 @@ function ScoresTable({ data }) {
       Loading
     </div>
   )
-}
-
-export async function getServerSideProps() {
-  const res = await fetch('https://geek.cerassus.usermd.net/scores');
-  const jason = await res.json();
-  console.log(jason)
-  return {
-    props: {
-      data: jason,
-    },
-  };
 }
 
 export default ScoresTable

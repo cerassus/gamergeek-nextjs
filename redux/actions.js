@@ -69,7 +69,7 @@ function loadNewQuestion(difficulty = 0) {
         const game_database = await store.getState().game_database
         if(game_database.length === 0) {
             difficulty
-                ? fetchNewGameDatabase(difficulty-1)
+                ? fetchNewGameDatabase(difficulty)
                 : dispatch(endGame()) 
         } else {
           const randomIndex = Math.floor(Math.random() * game_database.length)
@@ -81,7 +81,7 @@ function loadNewQuestion(difficulty = 0) {
                     try {
                         const apishot = await fetch(`https://geek.cerassus.usermd.net/database/${difficulty}`)
                         const response = await apishot.json()
-                        database_array.push(response)
+                        database_array.push(...response)
                     }
                     catch(error) {
                         console.log(error)
