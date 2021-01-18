@@ -23,6 +23,7 @@ Main functionality:
 - When the game is over, show summary with players statistics
 - Use MongoDB to store players scores
 - Add SCORE LEADERBOARD and HELP subpages
+- Make simple REST API with express and Mongoose to collect games info and players scores
 
 You should use Next.js and SSR. Any other libraries are most welcome.
 
@@ -40,7 +41,7 @@ Open your browser and enter the address "localhost:3000"
 
 # Website link on the server
 
-https://gamergeek-nextjs.vercel.app/  Project in progress, currently working on app communication with MongoDB
+https://gamergeek-nextjs.vercel.app/  
 
 # Used Technologies
 
