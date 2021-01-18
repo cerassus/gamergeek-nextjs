@@ -1,27 +1,9 @@
 import { combineReducers } from "redux"
+import { START_GAME, RESUME_GAME, END_GAME,SHOW_RANDOM_GAME, 
+    NEW_ANSWER, CLEAR_USER_SCORE, START_LOADING, SHOW_HINT, 
+    NEW_GAME_DATABASE, REMOVE_ITEM, SHOW_POPUP, SET_HINT_COUNTER,
+    NEW_USER_NAME } from "./const"
 
-const START_GAME = "START_GAME";
-const RESUME_GAME = "RESUME_GAME";
-const END_GAME = "END_GAME";
-const SHOW_RANDOM_GAME = "SHOW_RANDOM_GAME";
-const NEW_ANSWER = "NEW_ANSWER";
-const CLEAR_USER_SCORE = "CLEAR_USER_SCORE";
-const START_LOADING = "START_LOADING";
-const SHOW_HINT = "SHOW_HINT";
-const NEW_GAME_DATABASE = "NEW_GAME_DATABASE";
-const REMOVE_ITEM = "REMOVE_ITEM";
-const SHOW_POPUP = "SHOW_POPUP";
-const SET_HINT_COUNTER = "SET_HINT_COUNTER";
-const TEST = "TEST";
-const NEW_USER_NAME = "NEW_USER_NAME";
-
-
-const test = (state = [], action) => {
-    switch(action.type) {
-        case TEST: return action.payload
-        default: return state
-    } 
-}
 
 const game_database = (state = [], action) => {
     switch(action.type) {
@@ -98,7 +80,6 @@ const game_status = (state = { isStarted: false, isLoading: false }, action) => 
     }
 }
 
-
 export default combineReducers({
   user_score,
   hints_array,
@@ -106,7 +87,6 @@ export default combineReducers({
   game_database,
   popup_to_show,
   hint_counter, 
-  test,
   random_game,
   user_name,
 })

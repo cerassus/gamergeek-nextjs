@@ -1,4 +1,5 @@
-import styled from "styled-components";
+import styled from "styled-components"
+import { useState, useEffect } from "react"
 
 const ScoreRow = styled.tr`
   font-family: Montserrat;
@@ -22,9 +23,13 @@ const ScoreColumn = styled.td`
   }
 `;
 
-export default function ScoresTable({ data }) {
-  const scores = data || []
-  return (
+function ScoresTable({ data }) {
+  const [loading, setLoading] = useState(true)
+  useEffect(() => {
+    //setLoading(false)
+    console.log(data)
+  }, [data])
+  return !loading ? (
     <table>
       <thead>
         <ScoreRow>
@@ -35,7 +40,7 @@ export default function ScoresTable({ data }) {
         </ScoreRow>
       </thead>
       <tbody>
-        {scores.sort((a,b) => b.Score - a.Score).map((score, i) => (
+        {Array.isArray(data) && data.sort((a,b) => b.Score - a.Score).map((score, i) => (
           <ScoreRow key={i}>
             <ScoreColumn>{i + 1}</ScoreColumn>
             <ScoreColumn>{score.Name}</ScoreColumn>
@@ -45,5 +50,23 @@ export default function ScoresTable({ data }) {
         )).slice(0, 15)}
       </tbody>
     </table>
-  );
+  )
+  : (
+    <div>
+      Loading
+    </div>
+  )
 }
+
+export async function getServerSideProps() {
+  const res = await fetch('https://geek.cerassus.usermd.net/scores');
+  const jason = await res.json();
+  console.log(jason)
+  return {
+    props: {
+      data: jason,
+    },
+  };
+}
+
+export default ScoresTable

@@ -1,8 +1,5 @@
 import Layout from "../layout/Layout"
 import Challenge from "../redux_containers/Challenge"
-import connectMongoDatabase from "../mongo/connectDB"
-
-// connectMongoDatabase()
 
 export default function HomePage() {
   return (

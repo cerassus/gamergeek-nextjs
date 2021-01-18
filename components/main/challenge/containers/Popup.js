@@ -17,13 +17,16 @@ export default function Popup({
   const addRecordToMongo = async () => {
       showPopup(false)
       if(user_score.length > 0) {
-        const res = await fetch('https://geek.cerassus.usermd.net/newRecord', {
+        const res = await fetch('https://geek.cerassus.usermd.net/addNewScore', {
+          headers: {
+            "Content-Type": "application/json",
+          },
           method: 'POST',
-          body: JSON.stringify([{ 
+          body: JSON.stringify({ 
             Name: user_name,
             Date: new Date().toLocaleDateString(),
             Score: user_score.map(score => score = score.score).reduce((acc,score) => acc + score),
-          }])
+          })
         })
       }
   }

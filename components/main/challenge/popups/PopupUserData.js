@@ -39,7 +39,7 @@ export default function PopupUserData({ gameIsReadyToStart, user }) {
       <Fragment>
         <SC.WelcomeText center>Set game difficulty...</SC.WelcomeText>
         {game_difficulty.map((diff_lvl, i) => (
-          <SC.PlayButton key={"key0011" + i} onClick={() => setDifficulty(i+1)}>
+          <SC.PlayButton key={"key0011" + i} onClick={() => setDifficulty(diff_lvl)}>
             {diff_lvl}
           </SC.PlayButton>
         ))}
