@@ -24,7 +24,7 @@ export default function Popup({
           method: 'POST',
           body: JSON.stringify({ 
             Name: user_name,
-            Date: new Date().toLocaleDateString(),
+            Date: new Date().getTime(),
             Score: user_score.map(score => score = score.score).reduce((acc,score) => acc + score),
           })
         })

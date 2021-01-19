@@ -6,16 +6,19 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "prod": "next export"
+    "prod": "next export",
+    "custom": "nodemon app.js"
   },
   "dependencies": {
     "babel-plugin-transform-async-to-generator": "^6.24.1",
+    "express": "^4.17.1",
     "moment": "^2.29.1",
     "mongodb": "^3.6.3",
     "mongoose": "^5.11.7",
     "next": "10.0.1",
     "next-connect": "^0.9.1",
     "next-redux-wrapper": "^6.0.2",
+    "nodemon": "^2.0.7",
     "react": "17.0.1",
     "react-dom": "17.0.1",
     "react-redux": "^7.2.2",

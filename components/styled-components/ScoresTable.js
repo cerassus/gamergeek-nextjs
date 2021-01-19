@@ -26,6 +26,7 @@ const ScoreColumn = styled.td`
 function ScoresTable({ data }) {
   const [loading, setLoading] = useState(true)
   useEffect(() => {
+    (!data || data.length === 0) && setLoading(true)
     Array.isArray(data) && setLoading(false)
   }, [data])
   return !loading ? (
@@ -39,14 +40,15 @@ function ScoresTable({ data }) {
         </ScoreRow>
       </thead>
       <tbody>
-        {data.sort((a,b) => b.Score - a.Score).map((score, i) => (
+        {data.map((score, i) => {
+          return (
           <ScoreRow key={i}>
             <ScoreColumn>{i + 1}</ScoreColumn>
             <ScoreColumn>{score.Name}</ScoreColumn>
-            <ScoreColumn>{score.Date}</ScoreColumn>
+            <ScoreColumn>{new Date(Number(score.Date)).toLocaleDateString()}</ScoreColumn>
             <ScoreColumn><span>{score.Score}</span> points</ScoreColumn>
           </ScoreRow>
-        )).slice(0, 15)}
+        )})}
       </tbody>
     </table>
   )

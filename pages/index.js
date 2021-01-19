@@ -9,19 +9,4 @@ export default function HomePage() {
     )
   }
 
-  
-// Split Popups (summary i prepare)
 
-
-// When Table is unmount then endGame without Summary
-
-// add 'Enter press' listener to popups
-// Main counter miliseconds - font size down
-// Randomize possible answers
-
-// Correct logo in header
-
-// SSR
-// MongoDB
-
-// Add more animations

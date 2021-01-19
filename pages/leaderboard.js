@@ -6,7 +6,7 @@ const LeaderboardPage = ({data}) => {
   return (
     <Layout title="Help"> 
         <Container type="standard" width="min(95rem, 95%)" flex="column" leaderboard>
-          <ScoresTable data={data} />
+          <ScoresTable key={Math.random() * 12300770} data={data} />
         </Container>
     </Layout>
   )
@@ -15,9 +15,9 @@ const LeaderboardPage = ({data}) => {
 export async function getServerSideProps() {
   const res = await fetch('https://geek.cerassus.usermd.net/scores');
   const jason = await res.json();
-  return {
+  return Array.isArray(jason) && {
     props: {
-      data: jason,
+      data: jason.sort((a,b) => b.Score - a.Score).slice(0, 15)
     },
   };
 }
