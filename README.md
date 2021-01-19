@@ -41,7 +41,7 @@ Open your browser and enter the address "localhost:3000"
 
 # Website link on the server
 
-https://gamergeek-nextjs.vercel.app/  
+https://gamergeek.cerassus.eu/ 
 
 # Used Technologies
 
