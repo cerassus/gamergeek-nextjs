@@ -30,8 +30,8 @@ export default function HelpPage() {
         <Typography h2>Author</Typography>
         <Typography p padding="3vw">
           This webpage is made for my Portfolio. Technologies used: Next.js,
-          Styled Components, Redux, Moment, MongoDB and full ServerSide
-          Rendering. You can turn off JavaScript on this website.
+          Styled Components, Redux, Moment, MongoDB and ServerSide
+          Rendering. I also created simple REST/API in node.js with express and mongoose.
         </Typography>
       </Container>
     </Layout>
