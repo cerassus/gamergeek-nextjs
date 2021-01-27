@@ -1,5 +1,5 @@
 import { connect } from "react-redux";
-import GameNavigatorBottom from "../components/main/challenge/containers/GameNavigatorBottom"
+import GameNavigatorBottom from "../components/GameNavigatorBottom"
 import { startLoading, pushNewAnswer, loadNewQuestion } from "../redux/actions"
 
 const mapState = state => ({

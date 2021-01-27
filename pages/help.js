@@ -5,13 +5,7 @@ import Typography from "../components/styled-components/Typography";
 export default function HelpPage() {
   return (
     <Layout title="Leaderboard">
-      <Container
-        type="standard"
-        width="min(95rem, 95%)"
-        flex="column"
-        leaderboard
-        help
-      >
+      <Container help>
         <Typography h2>The Game</Typography>
         <Typography p padding="3vw">
           To start a new game press START A NEW CHALLENGE button. Set difficulty
@@ -30,8 +24,9 @@ export default function HelpPage() {
         <Typography h2>Author</Typography>
         <Typography p padding="3vw">
           This webpage is made for my Portfolio. Technologies used: Next.js,
-          Styled Components, Redux, Moment, MongoDB and ServerSide
-          Rendering. I also created simple REST/API in node.js with express and mongoose.
+          Styled Components, Redux, MongoDB. 
+          I also created simple REST/API in node.js with express and mongoose,
+          specially for this project.
         </Typography>
       </Container>
     </Layout>

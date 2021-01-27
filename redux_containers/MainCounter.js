@@ -1,5 +1,5 @@
 import { connect } from "react-redux";
-import MainCounter from "../components/main/challenge/containers/MainCounter"
+import MainCounter from "../components/MainCounter"
 import { endGame } from "../redux/actions"
 
 const mapState = state => ({

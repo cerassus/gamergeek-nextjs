@@ -2,7 +2,7 @@ import store  from "./store"
 import { START_GAME, RESUME_GAME, END_GAME,SHOW_RANDOM_GAME, 
     NEW_ANSWER, CLEAR_USER_SCORE, START_LOADING, SHOW_HINT, 
     NEW_GAME_DATABASE, REMOVE_ITEM, SHOW_POPUP, SET_HINT_COUNTER,
-    NEW_USER_NAME } from "./const"
+    NEW_USER_NAME, NEW_GLOBAL_SCORE, SWITCH_LOADING_GLOBAL_SCORE } from "./const"
 
 
 const startGame = () => ({
@@ -64,6 +64,15 @@ const setHintCounter = () => ({
     type: SET_HINT_COUNTER,
 })
 
+const updateGlobalScore = (global_score) => ({
+    type: NEW_GLOBAL_SCORE,
+    global_score,
+})
+
+const switchLoadingGlobalScore = () => ({
+    type: SWITCH_LOADING_GLOBAL_SCORE,
+})
+
 function loadNewQuestion(difficulty = 0) {
     return async function(dispatch) {
         const game_database = await store.getState().game_database
@@ -93,8 +102,37 @@ function loadNewQuestion(difficulty = 0) {
     }
 }
 
+// fetch for global user score and return it to redux
+// if global user score is not changed do not rerender component
+
+function replaceGlobalScore() {
+    return async function(dispatch) {
+        const startFetchingForScores = async () => {
+            const res = await fetch("https://geek.cerassus.usermd.net/scores")
+            return await res.json()
+        }
+        const global_score = await store.getState().global_score
+        if(global_score.length === 0) {
+            dispatch(switchLoadingGlobalScore())
+            const jason = await startFetchingForScores()
+            await dispatch(updateGlobalScore(jason))
+            dispatch(switchLoadingGlobalScore())
+        } else {
+            const jason = await startFetchingForScores()
+            for(let i=0; i < global_score.length; i++) {
+                if(global_score[i].Name !== jason[i].Name) {
+                    dispatch(switchLoadingGlobalScore())
+                    await dispatch(updateGlobalScore(jason))
+                    dispatch(switchLoadingGlobalScore())
+                    break
+                }
+            }
+        }
+    }
+} 
+
 export { startGame, resumeGame, endGame ,pushNewAnswer, showRandomGame, startLoading,showHint,
      clearUserScore, newGameDatabase, removeItemFromDatabase, showPopup, setHintCounter,
-     loadNewQuestion, newUserName }
+     loadNewQuestion, newUserName, replaceGlobalScore }
 
 

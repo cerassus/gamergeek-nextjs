@@ -1,5 +1,5 @@
 import { connect } from "react-redux";
-import Hints from "../components/main/challenge/containers/Hints"
+import Hints from "../components/Hints"
 
 const mapState = state => ({
     hints_array: state.hints_array,

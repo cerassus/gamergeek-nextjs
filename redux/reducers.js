@@ -2,7 +2,7 @@ import { combineReducers } from "redux"
 import { START_GAME, RESUME_GAME, END_GAME,SHOW_RANDOM_GAME, 
     NEW_ANSWER, CLEAR_USER_SCORE, START_LOADING, SHOW_HINT, 
     NEW_GAME_DATABASE, REMOVE_ITEM, SHOW_POPUP, SET_HINT_COUNTER,
-    NEW_USER_NAME } from "./const"
+    NEW_USER_NAME, NEW_GLOBAL_SCORE, SWITCH_LOADING_GLOBAL_SCORE } from "./const"
 
 
 const game_database = (state = [], action) => {
@@ -16,10 +16,10 @@ const game_database = (state = [], action) => {
     } 
 }
 
-const random_game = (state = "", action) => {
+const random_game = (state = {}, action) => {
     switch(action.type) {
         case SHOW_RANDOM_GAME: return action.game
-        case CLEAR_USER_SCORE: return ""
+        case CLEAR_USER_SCORE: return {}
         default: return state
     }
 }
@@ -45,11 +45,11 @@ const hints_array = (state = [], action) => {
     }
 }
 
-const popup_to_show = (state = false, action) => action.type === SHOW_POPUP 
+const popup_to_show = (state = "", action) => action.type === SHOW_POPUP 
     ? action.popup 
     : state
 
-const hint_counter = (state = false, action) => {
+const hint_counter = (state = 0, action) => {
     switch(action.type) {
         case SET_HINT_COUNTER: return state + 1
         case START_LOADING: 
@@ -80,6 +80,17 @@ const game_status = (state = { isStarted: false, isLoading: false }, action) => 
     }
 }
 
+const global_score = (state = [], action) => {
+    switch(action.type) {
+        case NEW_GLOBAL_SCORE: return action.global_score
+        default: return state
+    }
+}
+
+const global_score_loader = (state = false, action) => action.type === SWITCH_LOADING_GLOBAL_SCORE
+    ? !state
+    : state
+
 export default combineReducers({
   user_score,
   hints_array,
@@ -89,4 +100,6 @@ export default combineReducers({
   hint_counter, 
   random_game,
   user_name,
+  global_score,
+  global_score_loader,
 })

@@ -1,5 +1,5 @@
-import { connect } from "react-redux";
-import Header from "../components/header/Header"
+import { connect } from "react-redux"
+import Header from "../components/Header"
 import { clearUserScore, endGame } from "../redux/actions"
 
 const mapDispatch  = dispatch => ({

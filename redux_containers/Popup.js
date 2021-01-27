@@ -1,5 +1,5 @@
-import { connect } from "react-redux";
-import Popup from "../components/main/challenge/containers/Popup"
+import { connect } from "react-redux"
+import Popup from "../components/Popup"
 import { 
     showPopup, 
     loadNewQuestion, 

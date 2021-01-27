@@ -1,7 +1,8 @@
-import * as SC from "../../../styled-components/Popups"
-import PopupUserData from "../popups/PopupUserData"
-import PopupSummary from "../../../../redux_containers/PopupSummary"
-import Typography from "../../../styled-components/Typography"
+import { Background, PopupContainer, TopBar, Close, Content, } from "./styled-components/Popups"
+import PopupUserData from "./popups/PopupUserData"
+import PopupSummary from "../redux_containers/PopupSummary"
+import Typography from "./styled-components/Typography"
+import PropTypes from 'prop-types'
 
 export default function Popup({ 
     showPopup, 
@@ -38,19 +39,19 @@ export default function Popup({
     await loadNewQuestion(difficulty)
   }
   return (
-    <SC.Background visibility={true}>
-      <SC.PopupContainer>
-        <SC.TopBar>
-          <SC.Close onClick={() => addRecordToMongo()}>&times;</SC.Close>
-          <Typography hint uppercase gamefont>
+    <Background is_visible={true}>
+      <PopupContainer>
+        <TopBar>
+          <Close onClick={() => addRecordToMongo()}>&times;</Close>
+          <Typography hint popup uppercase gamefont>
             {popup_to_show === 'userdata'
               ? `Hello gamergeek!`
               : popup_to_show === 'summary'
                 ? `Summary`
                 : null}
           </Typography>
-        </SC.TopBar>
-        <SC.Content>
+        </TopBar>
+        <Content>
           {popup_to_show === 'userdata'
             ? <PopupUserData 
                 gameIsReadyToStart={(difficulty) => getNewDatabase(difficulty)} 
@@ -59,10 +60,20 @@ export default function Popup({
               ? <PopupSummary 
                   close_summary_popup={() => addRecordToMongo()}  />
               : null}
-        </SC.Content>
-      </SC.PopupContainer>
-    </SC.Background>
+        </Content>
+      </PopupContainer>
+    </Background>
   );
 }
 
-
+Popup.propTypes = {
+  showPopup: PropTypes.func, 
+  startGame: PropTypes.func, 
+  clearUserScore: PropTypes.func, 
+  loadNewQuestion: PropTypes.func, 
+  popup_to_show: PropTypes.string, 
+  startLoading: PropTypes.func, 
+  user_name: PropTypes.string, 
+  user_score: PropTypes.array, 
+  newUserName: PropTypes.func, 
+}

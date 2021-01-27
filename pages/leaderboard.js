@@ -1,25 +1,64 @@
-import Layout from "../layout/Layout"
-import Container from "../components/styled-components/Container"
-import ScoresTable from "../components/styled-components/ScoresTable"
+import Layout from "../layout/Layout";
+import Container from "../components/styled-components/Container";
+import { ScoreRow, ScoreColumn, Table } from "../components/styled-components/ScoresTable";
+import { connect } from "react-redux";
+import { useEffect } from "react";
+import { replaceGlobalScore } from "../redux/actions";
+import PropTypes from 'prop-types'
 
-const LeaderboardPage = ({data}) => {
+const mapState = (state) => ({
+  global_score: state.global_score,
+  global_score_loader: state.global_score_loader,
+});
+
+const mapDispatch = (dispatch) => ({
+  replaceGlobalScore: () => dispatch(replaceGlobalScore()),
+});
+
+const LeaderboardPage = ({ global_score, global_score_loader, replaceGlobalScore }) => {
+  useEffect(() => {
+    replaceGlobalScore();
+  }, []);
   return (
-    <Layout title="Help"> 
-        <Container type="standard" width="min(95rem, 95%)" flex="column" leaderboard>
-          <ScoresTable key={Math.random() * 12300770} data={data} />
-        </Container>
+    <Layout title="Help">
+      <Container leaderboard>
+        {global_score_loader ? (
+          <div>Loading new data...</div>
+        ) : (
+          <Table>
+            <thead>
+              <ScoreRow>
+                <th>No.</th>
+                <th>Name</th>
+                <th>Date</th>
+                <th>Score</th>
+              </ScoreRow>
+            </thead>
+            <tbody>
+              {global_score.map((score, i) => (
+                <ScoreRow key={i}>
+                  <ScoreColumn>{i + 1}</ScoreColumn>
+                  <ScoreColumn>{score.Name}</ScoreColumn>
+                  <ScoreColumn>
+                    {new Date(Number(score.Date)).toLocaleDateString()}
+                  </ScoreColumn>
+                  <ScoreColumn>
+                    <span>{score.Score}</span> points
+                  </ScoreColumn>
+                </ScoreRow>
+              ))}
+            </tbody>
+          </Table>
+        )}
+      </Container>
     </Layout>
-  )
-}
+  );
+};
 
-export async function getServerSideProps() {
-  const res = await fetch('https://geek.cerassus.usermd.net/scores');
-  const jason = await res.json();
-  return Array.isArray(jason) && {
-    props: {
-      data: jason.sort((a,b) => b.Score - a.Score).slice(0, 15)
-    },
-  };
-}
+export default connect(mapState, mapDispatch)(LeaderboardPage);
 
-export default LeaderboardPage
+LeaderboardPage.propTypes = {
+  global_score: PropTypes.array,
+  global_score_loader: PropTypes.bool,
+  replaceGlobalScore: PropTypes.func,
+}

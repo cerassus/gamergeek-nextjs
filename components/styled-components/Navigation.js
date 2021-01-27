@@ -1,6 +1,6 @@
 import styled from "styled-components"
 
-const NavigationContainer = styled.ul`
+export const NavigationContainer = styled.ul`
     display: inline-block;
     justify-content: space-around;
     list-style: none;
@@ -9,7 +9,7 @@ const NavigationContainer = styled.ul`
     }
     `
 
-const Navlink = styled.li`
+export const Navlink = styled.li`
     display: inline-block;
     font-weight: normal;
     font-size: clamp(1.5rem, 2.5vw, 2rem); 
@@ -22,11 +22,3 @@ const Navlink = styled.li`
         border-bottom: 2px solid var(--font-color);
     }
     `
-
-export default function Navigation(props) {
-    return (
-        <NavigationContainer>
-            {props.children.map((child,i) => <Navlink key={i}>{child}</Navlink>)}
-        </NavigationContainer>
-    )
-}

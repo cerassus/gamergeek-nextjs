@@ -1,5 +1,5 @@
 import { connect } from "react-redux"
-import Screenshot from "../components/styled-components/Screenshot"
+import Screenshot from "../components/Screenshot"
 import { resumeGame } from "../redux/actions"
 
 const mapState = state => ({

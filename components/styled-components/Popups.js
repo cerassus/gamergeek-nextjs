@@ -9,7 +9,7 @@ export const Background = styled.div`
   background: rgba(0, 0, 0, 0.75);
   z-index: 1000;
   ${(props) =>
-    props.visibility
+    props.is_visible
       ? `opacity: 1; visibility: visible;`
       : `opacity: 0; visibility: hidden;`}
 `;
@@ -45,7 +45,7 @@ export const Close = styled.div`
   }
 `;
 export const Content = styled.div`
-  padding: 3rem;
+  padding: 2rem;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -54,7 +54,7 @@ export const Content = styled.div`
 export const TextInput = styled.input`
   background: black;
   color: white;
-  width: 55%;
+  width: min(350px, 95%);
   font-size: 3rem;
   padding: 1rem;
   border: none;
@@ -86,7 +86,7 @@ export const PlayButton = styled.a`
   font-size: clamp(1.2rem, 2.5vw, 1.8rem);
   text-transform: uppercase;
   text-align: center;
-  width: 33%;
+  width: 60%;
   padding: 1rem;
   border: 0;
   &:hover {
@@ -95,9 +95,7 @@ export const PlayButton = styled.a`
     cursor: pointer;
   }
   ${props => props.summary && `
-    position: absolute;
-    bottom: 0;
-    right: 0;
+    display: block;
     width: 100%;
   `}
 `;
@@ -120,5 +118,16 @@ export const ScoreText = styled.div`
   box-shadow: 5px 5px 0 var(--dark-grey);
   & span {
     font-size: 2rem;
+  }
+`
+export const SummaryContainer = styled.div`
+  display: flex;
+  width: 95%;
+  padding: 2rem 0;
+  justify-content: space-between;
+  flex-direction: ${props => props.mobile ? `column` : `row`};
+  & > div {
+    width: ${props => props.mobile ? `100%` : `50%`};
+    margin: 1rem;
   }
 `
